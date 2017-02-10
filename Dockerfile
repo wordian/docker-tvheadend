@@ -236,6 +236,29 @@ RUN \
 # copy local files
 COPY root/ /
 
+# install dependencies for epg2xml
+RUN apk add --no-cache py-requests py-lxml py-pip && \
+	pip install --upgrade pip && \
+	pip install beautifulsoup4 && \
+	
+# download epg2xml and tv_grab_file
+ mkdir /epg2xml
+ADD https://raw.githubusercontent.com/wiserain/epg2xml/master/Channel.json /epg2xml/
+ADD https://raw.githubusercontent.com/wiserain/epg2xml/master/epg2xml.py /epg2xml/
+ADD https://raw.githubusercontent.com/nurtext/tv_grab_file_synology/master/src/remote/tv_grab_file /usr/bin/tv_grab_kr_kt
+
+# setting epg2xml
+RUN cd /usr/bin && \
+	cp tv_grab_kr_kt tv_grab_kr_sk && \
+	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i SK -d/g" tv_grab_kr_sk && \
+	sed -i '43s/.*/   printf \"Korea (SK)\"/g' tv_grab_kr_sk && \
+	cp tv_grab_kr_kt tv_grab_kr_lg && \
+	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i LG -d/g" tv_grab_kr_lg && \
+	sed -i '43s/.*/   printf \"Korea (LG)\"/g' tv_grab_kr_lg && \
+	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i KT -d --icon http:\/\/tv.olleh.com\/img\/channel/g" tv_grab_kr_kt && \
+	sed -i '43s/.*/   printf \"Korea (KT)\"/g' tv_grab_kr_kt && \
+	chmod 555 /usr/bin/tv_grab_kr_*
+	
 # add picons
 #ADD picons.tar.bz2 /picons
 
