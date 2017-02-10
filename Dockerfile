@@ -36,6 +36,8 @@ RUN \
 	libtool \
 	libxml2-dev \
 	libxslt-dev \
+#	libdvbcsa-dev \
+#	libva-dev \
 	make \
 	mercurial \
 	libressl-dev \
@@ -164,15 +166,8 @@ RUN \
  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
  ./configure \
-	--disable-ffmpeg_static \
-	--disable-hdhomerun_static \
-	--disable-libfdkaac_static \
-	--disable-libmfx_static \
-	--disable-libtheora_static \
-	--disable-libvorbis_static \
-	--disable-libvpx_static \
-	--disable-libx264_static \
-	--disable-libx265_static \
+#	--enable-qsv \
+#	--enable-dvbcsa \
 	--enable-hdhomerun_client \
 	--enable-libav \
 	--infodir=/usr/share/info \
@@ -225,6 +220,9 @@ RUN \
 	ffmpeg \
 	ffmpeg-libs \
 	libhdhomerun-libs \
+#	libdvbcsa \
+#	libva \
+#	libva-intel-driver \
 	libxml2 \
 	libxslt && \
 
