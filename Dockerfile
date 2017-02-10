@@ -4,6 +4,7 @@ MAINTAINER saarg
 # package version
 ARG ARGTABLE_VER="2.13"
 ARG XMLTV_VER="0.5.69"
+ARG FFMPEG_VER="3.2.2"
 
 # set version label
 ARG BUILD_DATE
@@ -258,7 +259,16 @@ RUN cd /usr/bin && \
 	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i KT -d --icon http:\/\/tv.olleh.com\/img\/channel/g" tv_grab_kr_kt && \
 	sed -i '43s/.*/   printf \"Korea (KT)\"/g' tv_grab_kr_kt && \
 	chmod 555 /usr/bin/tv_grab_kr_*
-	
+
+# static ffmpeg
+ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
+RUN apk add --no-cache xz && \
+    cd /tmp && \
+    xz -d ffmpeg-release-64bit-static.tar.xz && \
+    tar xvf ffmpeg-release-64bit-static.tar && \
+    cp "/tmp/ffmpeg-${FFMPEG_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
+    rm -rf /tmp/*
+
 # add picons
 #ADD picons.tar.bz2 /picons
 
