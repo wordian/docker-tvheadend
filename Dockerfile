@@ -4,7 +4,7 @@ MAINTAINER saarg
 # package version
 ARG ARGTABLE_VER="2.13"
 ARG XMLTV_VER="0.5.69"
-ARG FFMPEG_VER="3.2.2"
+ARG FFMPEG_VER="3.2.3"
 
 # set version label
 ARG BUILD_DATE
