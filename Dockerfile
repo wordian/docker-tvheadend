@@ -12,6 +12,7 @@ LABEL build_version="Build-date:- ${BUILD_DATE}"
 
 # Environment settings
 ENV HOME="/config"
+ENV TZ=Asia/Seoul
 
 # copy patches
 COPY patches/ /tmp/patches/
