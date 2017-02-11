@@ -244,8 +244,8 @@ RUN apk add --no-cache py-requests py-lxml py-pip && \
 	
 # download epg2xml and tv_grab_file
  mkdir /epg2xml
-ADD https://raw.githubusercontent.com/wiserain/epg2xml/master/Channel.json /epg2xml/
-ADD https://raw.githubusercontent.com/wiserain/epg2xml/master/epg2xml.py /epg2xml/
+ADD https://raw.githubusercontent.com/wiserain/epg2xml/dev/Channel.json /epg2xml/
+ADD https://raw.githubusercontent.com/wiserain/epg2xml/dev/epg2xml.py /epg2xml/
 ADD https://raw.githubusercontent.com/nurtext/tv_grab_file_synology/master/src/remote/tv_grab_file /usr/bin/tv_grab_kr_kt
 
 # setting epg2xml
