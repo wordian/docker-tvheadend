@@ -256,7 +256,7 @@ RUN cd /usr/bin && \
 	cp tv_grab_kr_kt tv_grab_kr_lg && \
 	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i LG -d/g" tv_grab_kr_lg && \
 	sed -i '43s/.*/   printf \"Korea (LG)\"/g' tv_grab_kr_lg && \
-	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i KT -d --icon http:\/\/tv.olleh.com\/img\/channel/g" tv_grab_kr_kt && \
+	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i KT -d/g" tv_grab_kr_kt && \
 	sed -i '43s/.*/   printf \"Korea (KT)\"/g' tv_grab_kr_kt && \
 	chmod 555 /usr/bin/tv_grab_kr_*
 
