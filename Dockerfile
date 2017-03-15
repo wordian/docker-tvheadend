@@ -242,23 +242,10 @@ RUN apk add --no-cache py-requests py-lxml py-pip && \
 	pip install --upgrade pip && \
 	pip install beautifulsoup4 && \
 	
-# download epg2xml and tv_grab_file
+# download epg2xml
  mkdir /epg2xml
-ADD https://raw.githubusercontent.com/wiserain/epg2xml/dev/Channel.json /epg2xml/
-ADD https://raw.githubusercontent.com/wiserain/epg2xml/dev/epg2xml.py /epg2xml/
-ADD https://raw.githubusercontent.com/nurtext/tv_grab_file_synology/master/src/remote/tv_grab_file /usr/bin/tv_grab_kr_kt
-
-# setting epg2xml
-RUN cd /usr/bin && \
-	cp tv_grab_kr_kt tv_grab_kr_sk && \
-	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i SK -d/g" tv_grab_kr_sk && \
-	sed -i '43s/.*/   printf \"Korea (SK)\"/g' tv_grab_kr_sk && \
-	cp tv_grab_kr_kt tv_grab_kr_lg && \
-	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i LG -d/g" tv_grab_kr_lg && \
-	sed -i '43s/.*/   printf \"Korea (LG)\"/g' tv_grab_kr_lg && \
-	sed -i "8s/.*/    python \/epg2xml\/epg2xml.py -i KT -d/g" tv_grab_kr_kt && \
-	sed -i '43s/.*/   printf \"Korea (KT)\"/g' tv_grab_kr_kt && \
-	chmod 555 /usr/bin/tv_grab_kr_*
+ADD https://raw.githubusercontent.com/wonipapa/epg2xml-python/master/Channel.json /epg2xml/
+ADD https://raw.githubusercontent.com/wonipapa/epg2xml-python/master/epg2xml.py /epg2xml/
 
 # static ffmpeg
 ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
