@@ -4,6 +4,7 @@ MAINTAINER saarg
 # package version
 ARG ARGTABLE_VER="2.13"
 ARG XMLTV_VER="0.5.69"
+ARG EPG2XML_VER="1.1.3"
 ARG FFMPEG_VER="3.2.4"
 
 # set version label
@@ -244,8 +245,11 @@ RUN apk add --no-cache py-requests py-lxml py-pip && \
 	
 # download epg2xml
  mkdir /epg2xml
-ADD https://raw.githubusercontent.com/wonipapa/epg2xml-python/master/Channel.json /epg2xml/
-ADD https://raw.githubusercontent.com/wonipapa/epg2xml-python/master/epg2xml.py /epg2xml/
+ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" /epg2xml/
+ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.py" /epg2xml/
+
+# set permissions on tv_grab_files
+RUN chmod 555 /usr/bin/tv_grab_kr_*
 
 # static ffmpeg
 ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
