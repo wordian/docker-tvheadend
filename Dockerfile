@@ -4,7 +4,7 @@ MAINTAINER saarg
 # package version
 ARG ARGTABLE_VER="2.13"
 ARG XMLTV_VER="0.5.69"
-ARG EPG2XML_VER="1.1.3"
+ARG EPG2XML_VER="1.1.5"
 ARG FFMPEG_VER="3.2.4"
 
 # set version label
@@ -38,7 +38,7 @@ RUN \
 	libtool \
 	libxml2-dev \
 	libxslt-dev \
-#	libdvbcsa-dev \
+	libdvbcsa-dev \
 #	libva-dev \
 	make \
 	mercurial \
@@ -169,7 +169,7 @@ RUN \
  cd /tmp/tvheadend && \
  ./configure \
 #	--enable-qsv \
-#	--enable-dvbcsa \
+	--enable-dvbcsa \
 	--enable-hdhomerun_client \
 	--enable-libav \
 	--infodir=/usr/share/info \
@@ -222,7 +222,7 @@ RUN \
 	ffmpeg \
 	ffmpeg-libs \
 	libhdhomerun-libs \
-#	libdvbcsa \
+	libdvbcsa \
 #	libva \
 #	libva-intel-driver \
 	libxml2 \
