@@ -19,6 +19,7 @@ do
        --capabilities) printf "%s\n" "$CAP";;
        -D) shift;;
        -o) shift;;
+       -g) shift;;
        
        #pass through anything else
        *) [[ "${arg:0:1}" == "-" ]] || delim="\""
