@@ -27,7 +27,7 @@ fi
 
 if [ -f $EPG2XML_PY ]
 then
-    $EPG2XML_PY $args
+    python $EPG2XML_PY $args
 fi
 
 exit 0
