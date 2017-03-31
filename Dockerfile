@@ -249,7 +249,7 @@ ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/C
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.py" /epg2xml/
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
-# set permissions on tv_grab_files
+# set permissions
 RUN chmod 555 /usr/bin/tv_grab_kr_* && \
 	chmod 555 /epg2xml/epg2xml.py
 
