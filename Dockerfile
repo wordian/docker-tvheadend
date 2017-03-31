@@ -242,7 +242,7 @@ COPY root/ /
 RUN apk add --no-cache py-requests py-lxml py-pip && \
 	pip install --upgrade pip && \
 	pip install beautifulsoup4 && \
-	
+
 # download epg2xml
  mkdir /epg2xml
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" /epg2xml/
@@ -250,7 +250,8 @@ ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/e
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
 # set permissions on tv_grab_files
-RUN chmod 555 /usr/bin/tv_grab_kr_*
+RUN chmod 555 /usr/bin/tv_grab_kr_* && \
+	chmod 555 /epg2xml/epg2xml.py
 
 # static ffmpeg
 ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
