@@ -249,9 +249,8 @@ ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/C
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.py" /epg2xml/
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
-# set permissions
-RUN chmod 555 /usr/bin/tv_grab_kr_* && \
-	chmod 555 /epg2xml/epg2xml.py
+# set permissions on tv_grab_files
+RUN chmod 555 /usr/bin/tv_grab_kr_*
 
 # static ffmpeg
 ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
