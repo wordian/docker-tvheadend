@@ -4,22 +4,10 @@ MAINTAINER saarg
 # package version
 ARG ARGTABLE_VER="2.13"
 ARG FFMPEG_VER="ffmpeg"
-ARG TZ="Europe/Oslo"
+ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
 ARG EPG2XML_VER="1.1.5"
-ARG FFMPEG_VER="3.2.4"
-
-# set version label
-ARG BUILD_DATE
-ARG VERSION
-LABEL build_version="Build-date:- ${BUILD_DATE}"
-
-# Environment settings
-ENV HOME="/config"
-ENV TZ=Asia/Seoul
-
-# copy patches
-COPY patches/ /tmp/patches/
+ARG FFMPEGBIN_VER="3.2.4"
 
 # set version label
 ARG BUILD_DATE
@@ -253,7 +241,7 @@ RUN apk add --no-cache xz && \
     cd /tmp && \
     xz -d ffmpeg-release-64bit-static.tar.xz && \
     tar xvf ffmpeg-release-64bit-static.tar && \
-    cp "/tmp/ffmpeg-${FFMPEG_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
+    cp "/tmp/ffmpeg-${FFMPEGBIN_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
     rm -rf /tmp/*
 
 # add picons
