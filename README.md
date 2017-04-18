@@ -1,10 +1,9 @@
 # docker-tvheadend
 
-docker container with Korean EPG grabber
-
-container features are:
-- based on [linuxserver/tvheadend](https://hub.docker.com/r/linuxserver/tvheadend/)
+docker container with Korean EPG grabber based on
+- [linuxserver/tvheadend](https://hub.docker.com/r/linuxserver/tvheadend/)
 - Korean EPG grabber by [epg2xml](https://github.com/wonipapa/epg2xml) and internal [tv_grab_file](https://github.com/nurtext/tv_grab_file_synology)
+- [FFmpeg Static Builds](https://johnvansickle.com/ffmpeg/)
 
 
 ## Usage
@@ -12,7 +11,7 @@ container features are:
 ```
 docker run -d \
     --name=<container name> \
-    -p 9981:9981 -p 9982:9982 \
+    --network=host \
     -v <path for recordings>:/recordings \
     -v <path for config>:/config \
     -e TZ=<timezone> \
@@ -21,8 +20,27 @@ docker run -d \
     wiserain/tvheadend
 ```
 
-By default, ```TZ``` is set to ```Asia/Seoul``` for Korean users. After container runs, you can access webui via ```http://myip:9981/```. You may also find the internal epg grabber for three different iptv service providers, e.g. KT, SK, and LG, in the menu ```Configuration > Channel / EPG > EPG Grabber Modules```.
+```
+version: '2'
+services:
+  <service name>:
+    container_name: <container name>
+    image: wiserain/tvheadend:latest
+    restart: always
+    network_mode: "host"
+    volumes:
+      - <path for config>:/config
+      - <path for recordings>:/recordings
+    environment:
+      - PUID=<UID for user>
+      - PGID=<GID for user>
+      - TZ=Asia/Seoul
+```
+By default, ```TZ``` is set to ```Asia/Seoul``` for Korean users. After container runs, you can access WEBUI via ```http://myip:9981/```. You may also find the internal epg grabber for three different iptv service providers, e.g. KT, SK, and LG, in the menu ```Configuration > Channel / EPG > EPG Grabber Modules```. For more details in Korean, please refer to [this article](http://wiserain.net/1038).
 
+## Updates
+- 2017-04-04: add ```tv_grab_kr_epg2xml``` and ```tv_grab_kr_mc2xml```
+- 2017-xx-xx: initial build
 
 ## Further information
 
@@ -40,4 +58,4 @@ By default, ```TZ``` is set to ```Asia/Seoul``` for Korean users. After containe
 
 **References**
 - linuxserver/tvheadend on [github](https://github.com/linuxserver/docker-tvheadend) and [dockerhub](https://hub.docker.com/r/linuxserver/tvheadend/)
-- tobbenb/tvheadend-unstable on [github](https://github.com/tobbenb/docker-containers/tree/master/tvheadend-unstable) and [dockerhub](https://hub.docker.com/r/tobbenb/tvheadend-unstable/)
+- tobbenb/tvheadend-unstable on [github](https://github.com/tobbenb/docker-containers/tree/master/tvheadend-unstable) and ~~[dockerhub](https://hub.docker.com/r/tobbenb/tvheadend-unstable/)~~

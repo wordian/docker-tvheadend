@@ -1,11 +1,13 @@
 FROM lsiobase/alpine:3.5
 MAINTAINER saarg
 
-# package version
+# package version
 ARG ARGTABLE_VER="2.13"
+ARG FFMPEG_VER="ffmpeg"
+ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
-ARG EPG2XML_VER="1.1.5"
-ARG FFMPEG_VER="3.2.4"
+ARG EPG2XML_VER="1.1.6"
+ARG FFMPEGBIN_VER="3.3"
 
 # set version label
 ARG BUILD_DATE
@@ -14,9 +16,8 @@ LABEL build_version="Build-date:- ${BUILD_DATE}"
 
 # Environment settings
 ENV HOME="/config"
-ENV TZ=Asia/Seoul
 
-# copy patches
+# copy patches
 COPY patches/ /tmp/patches/
 
 # install build packages
@@ -26,7 +27,7 @@ RUN \
 	automake \
 	cmake \
 	coreutils \
-	ffmpeg-dev \
+	${FFMPEG_VER}-dev \
 	file \
 	findutils \
 	g++ \
@@ -121,27 +122,9 @@ RUN \
 
 # install perl modules for xmltv
  curl -L http://cpanmin.us | perl - App::cpanminus && \
- cpanm DateTime::Format::ISO8601 && \
- cpanm DateTime::Format::SQLite && \
- cpanm Encode && \
- cpanm File::HomeDir && \
- cpanm File::Path && \
- cpanm HTML::Entities && \
- cpanm HTML::TableExtract && \
- cpanm HTTP::Cache::Transparent && \
- cpanm inc && \
- cpanm JSON::PP && \
- cpanm LWP::Simple && \
- cpanm LWP::UserAgent && \
- cpanm PerlIO::gzip && \
- cpanm SOAP::Lite && \
- cpanm Storable && \
- cpanm Unicode::UTF8simple && \
- cpanm version && \
- cpanm WWW::Mechanize && \
- cpanm XML::DOM && \
+ cpanm --installdeps /tmp/patches && \
 
-# build libiconv
+# build libiconv
  mkdir -p \
  /tmp/iconv-src && \
  curl -o \
@@ -178,7 +161,7 @@ RUN \
 	--prefix=/usr \
 	--sysconfdir=/config && \
  make && \
- make install && \	
+ make install && \
 
 # build XMLTV
  curl -o /tmp/xmtltv-src.tar.bz2 -L \
@@ -191,7 +174,7 @@ RUN \
  make test && \
  make install && \
 
-# build argtable2
+# build argtable2
  ARGTABLE_VER1="${ARGTABLE_VER//./-}" && \
  mkdir -p \
 	/tmp/argtable && \
@@ -207,7 +190,7 @@ RUN \
  make check && \
  make install && \
 
-# build comskip
+# build comskip
  git clone git://github.com/erikkaashoek/Comskip /tmp/comskip && \
  cd /tmp/comskip && \
  ./autogen.sh && \
@@ -219,8 +202,8 @@ RUN \
 
 # install runtime packages
  apk add --no-cache \
-	ffmpeg \
-	ffmpeg-libs \
+	${FFMPEG_VER} \
+	${FFMPEG_VER}-libs \
 	libhdhomerun-libs \
 	libdvbcsa \
 #	libva \
@@ -258,7 +241,7 @@ RUN apk add --no-cache xz && \
     cd /tmp && \
     xz -d ffmpeg-release-64bit-static.tar.xz && \
     tar xvf ffmpeg-release-64bit-static.tar && \
-    cp "/tmp/ffmpeg-${FFMPEG_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
+    cp "/tmp/ffmpeg-${FFMPEGBIN_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
     rm -rf /tmp/*
 
 # add picons
