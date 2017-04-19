@@ -39,7 +39,7 @@ services:
 By default, ```TZ``` is set to ```Asia/Seoul``` for Korean users. After container runs, you can access WEBUI via ```http://myip:9981/```. You may also find the internal epg grabber for three different iptv service providers, e.g. KT, SK, and LG, in the menu ```Configuration > Channel / EPG > EPG Grabber Modules```. For more details in Korean, please refer to [this article](http://wiserain.net/1038).
 
 ## Updates
-- 2017-04-19: apply changes from linuxserver/docker-tvheadend ```use repo version of gnu-libiconv ...```, update epg2xml to 1.1.7, and make FFMPEGBIN optional
+- 2017-04-19: apply [changes from linuxserver/docker-tvheadend](https://github.com/linuxserver/docker-tvheadend/commit/bac86348983f6b404ee07f60f0e5edf9a7024603), update ```epg2xml``` to ```1.1.7```, and make static ffmpeg binary optional
 - 2017-04-04: add ```tv_grab_kr_epg2xml``` and ```tv_grab_kr_mc2xml```
 - 2017-xx-xx: initial build
 
