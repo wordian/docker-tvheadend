@@ -6,8 +6,7 @@ ARG ARGTABLE_VER="2.13"
 ARG FFMPEG_VER="ffmpeg"
 ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
-ARG EPG2XML_VER="1.1.6"
-ARG FFMPEGBIN_VER="3.3"
+ARG EPG2XML_VER="1.1.7"
 
 # set version label
 ARG BUILD_DATE
@@ -224,15 +223,6 @@ ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/e
 
 # set permissions on tv_grab_files
 RUN chmod 555 /usr/bin/tv_grab_kr_*
-
-# static ffmpeg
-ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
-RUN apk add --no-cache xz && \
-    cd /tmp && \
-    xz -d ffmpeg-release-64bit-static.tar.xz && \
-    tar xvf ffmpeg-release-64bit-static.tar && \
-    cp "/tmp/ffmpeg-${FFMPEGBIN_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
-    rm -rf /tmp/*
 
 # add picons
 #ADD picons.tar.bz2 /picons
