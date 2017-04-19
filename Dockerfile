@@ -51,6 +51,10 @@ RUN \
 	uriparser-dev \
 	wget \
 	zlib-dev && \
+ apk add --no-cache --virtual=build-dependencies \
+	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	gnu-libiconv-dev && \
+
 
 # add runtime dependencies required in build stage
  apk add --no-cache \
@@ -124,23 +128,6 @@ RUN \
  curl -L http://cpanmin.us | perl - App::cpanminus && \
  cpanm --installdeps /tmp/patches && \
 
-# build libiconv
- mkdir -p \
- /tmp/iconv-src && \
- curl -o \
- /tmp/iconv.tar.gz -L \
-	ftp://www.mirrorservice.org/sites/ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz && \
- tar xf /tmp/iconv.tar.gz -C \
-	/tmp/iconv-src --strip-components=1 && \
- cd /tmp/iconv-src && \
- ./configure \
-	--prefix=/usr/local && \
- patch -p1 -i \
-	/tmp/patches/libiconv-1-fixes.patch && \
- make && \
- make install && \
- libtool --finish /usr/local/lib && \
-
 # build dvb-apps
  hg clone http://linuxtv.org/hg/dvb-apps /tmp/dvb-apps && \
  cd /tmp/dvb-apps && \
@@ -210,6 +197,9 @@ RUN \
 #	libva-intel-driver \
 	libxml2 \
 	libxslt && \
+ apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	gnu-libiconv && \
 
 # cleanup
  apk del --purge \
