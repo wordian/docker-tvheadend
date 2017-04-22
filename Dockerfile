@@ -6,8 +6,7 @@ ARG ARGTABLE_VER="2.13"
 ARG FFMPEG_VER="ffmpeg"
 ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
-ARG EPG2XML_VER="1.1.6"
-ARG FFMPEGBIN_VER="3.3"
+ARG EPG2XML_VER="1.1.8"
 
 # set version label
 ARG BUILD_DATE
@@ -51,6 +50,10 @@ RUN \
 	uriparser-dev \
 	wget \
 	zlib-dev && \
+ apk add --no-cache --virtual=build-dependencies \
+	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	gnu-libiconv-dev && \
+
 
 # add runtime dependencies required in build stage
  apk add --no-cache \
@@ -124,23 +127,6 @@ RUN \
  curl -L http://cpanmin.us | perl - App::cpanminus && \
  cpanm --installdeps /tmp/patches && \
 
-# build libiconv
- mkdir -p \
- /tmp/iconv-src && \
- curl -o \
- /tmp/iconv.tar.gz -L \
-	ftp://www.mirrorservice.org/sites/ftp.gnu.org/gnu/libiconv/libiconv-1.14.tar.gz && \
- tar xf /tmp/iconv.tar.gz -C \
-	/tmp/iconv-src --strip-components=1 && \
- cd /tmp/iconv-src && \
- ./configure \
-	--prefix=/usr/local && \
- patch -p1 -i \
-	/tmp/patches/libiconv-1-fixes.patch && \
- make && \
- make install && \
- libtool --finish /usr/local/lib && \
-
 # build dvb-apps
  hg clone http://linuxtv.org/hg/dvb-apps /tmp/dvb-apps && \
  cd /tmp/dvb-apps && \
@@ -210,6 +196,9 @@ RUN \
 #	libva-intel-driver \
 	libxml2 \
 	libxslt && \
+ apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/testing \
+	gnu-libiconv && \
 
 # cleanup
  apk del --purge \
@@ -234,15 +223,6 @@ ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/e
 
 # set permissions on tv_grab_files
 RUN chmod 555 /usr/bin/tv_grab_kr_*
-
-# static ffmpeg
-ADD https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-64bit-static.tar.xz /tmp/
-RUN apk add --no-cache xz && \
-    cd /tmp && \
-    xz -d ffmpeg-release-64bit-static.tar.xz && \
-    tar xvf ffmpeg-release-64bit-static.tar && \
-    cp "/tmp/ffmpeg-${FFMPEGBIN_VER}-64bit-static/ffmpeg" /usr/bin/ffmpeg && \
-    rm -rf /tmp/*
 
 # add picons
 #ADD picons.tar.bz2 /picons
