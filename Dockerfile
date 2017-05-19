@@ -6,7 +6,7 @@ ARG ARGTABLE_VER="2.13"
 ARG FFMPEG_VER="ffmpeg"
 ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
-ARG EPG2XML_VER="1.1.8"
+ARG EPG2XML_VER="1.1.9"
 
 # set version label
 ARG BUILD_DATE
