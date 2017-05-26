@@ -4,7 +4,7 @@
 
 #### linuxserver/tvheadend 기반
 
-다양한 docker용 어플리케이션 이미지를 제작/배포하고 있는 [linuxserver](https://linuxserver.io/)의 [소스](https://hub.docker.com/r/linuxserver/tvheadend/)를 기반으로 한다. 차이점은 tvheadend 빌드 옵션 중 ```--disable-*_static```을 제거하여 좀 더 나은 transcoding이 가능하게 한다. 또한 본 이미지는 ```x86-64``` 기반이다.
+다양한 docker용 어플리케이션 이미지를 제작/배포하고 있는 [linuxserver.io](https://linuxserver.io/)의 [소스](https://github.com/linuxserver/docker-tvheadend)를 기반으로 한다. 차이점은 tvheadend 빌드 옵션 중 ```--disable-*_static```을 제거하여 좀 더 나은 transcoding이 가능하게 한다. 또한 본 이미지는 ```x86 64``` 기반이다.
 
 #### 대한민국 IPTV를 위한 EPG grabber 탑재
 
@@ -50,12 +50,12 @@ services:
 
 [별도 문서 참조](docs/how-to-run-on-synology.md)
 
----
+## 관련 설정들
 
 **이미지 태그 네이밍 규칙**
 
 - **latest**: 최신 이미지 버전. 대부분의 유저에게 권장 됨.
-- **ver-build**: 예를 들어 ```4.1-2533``` [과거 이미지 버전](https://hub.docker.com/r/wiserain/tvheadend/tags/)으로 tvheadend 빌드를 따른다.
+- **ver-build**: [과거 이미지 버전](https://hub.docker.com/r/wiserain/tvheadend/tags/)으로 tvheadend 빌드를 따른다. 예를 들어 ```4.1-2533```.
 - **unstable**: 개발 및 테스트 버전
 - **stable**: 최신 tvheadend release 버전 [참고](https://doozer.io/tvheadend/tvheadend)
 
@@ -78,7 +78,7 @@ docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend를 �
 ```
 python /epg2xml/epg2xml.py -i {KT/LG/SK} -d
 ```
-왼쪽에서 Korea (epg2xml)을 선택하고 오른쪽 옵션 창에서 epg2xml.py 이후의 arguments를 주면 된다.
+왼쪽에서 Korea (epg2xml)을 선택하고 오른쪽 옵션 창에서 epg2xml.py 이후의 arguments를 주면 된다. 위 그림 참고.
 
 **처음 EPG 설정 시 유의사항**
 
