@@ -65,7 +65,7 @@ docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend를 �
 
 **환경변수**
 
-- ```PUID```, ```PGUI```: 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers)를 참고하여 설정한다.
+- ```PUID```, ```PGUI```: 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers)를 참고하여 설정한다. 적절하게 설정하지 않으면, EPG 관련 스크립트가 동작하지 않거나 녹화가 안될 수 있다.
 - ```TZ```: 시스템이 사용할 timezone 설정이다. 이게 제대로 안되면 EPG에 시간차가 발생한다. 한국 사용자를 고려하여 기본적으로 ```Asia/Seoul```로 설정되어있다.
 
 ## EPG 사용법
@@ -95,4 +95,4 @@ Socket으로 직접 밀어 넣는 external grabber와는 달리 내부적으로 
 ![](docs/images/PicPick_Capture_20170419_001.png) | ![](docs/images/PicPick_Capture_20170419_002.png)
 ---|---
 
-설치 방법은 환경 변수에 버전을 명시해주면 된다. 예를 들어 ```FFMPEGBIN_VER=3.3```
+다음과 같이 환경 변수를 통해 설치할 수 있다. ```FFMPEGBIN_VER=latest``` 바이너리 배포 사이트가 과거 버전을 공개하지 않으므로 ```latest```가 유일한 옵션이다.
