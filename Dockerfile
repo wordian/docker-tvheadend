@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.6
+FROM lsiobase/alpine:3.5
 MAINTAINER saarg
 
 # package version
