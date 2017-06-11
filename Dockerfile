@@ -3,7 +3,6 @@ MAINTAINER saarg
 
 # package version
 ARG ARGTABLE_VER="2.13"
-ARG FFMPEG_VER="ffmpeg"
 ARG TZ="Asia/Seoul"
 ARG XMLTV_VER="0.5.69"
 ARG EPG2XML_VER="1.1.9"
@@ -13,7 +12,7 @@ ARG BUILD_DATE
 ARG VERSION
 LABEL build_version="Build-date:- ${BUILD_DATE}"
 
-# Environment settings
+# environment settings
 ENV HOME="/config"
 
 # copy patches
@@ -26,7 +25,7 @@ RUN \
 	automake \
 	cmake \
 	coreutils \
-	${FFMPEG_VER}-dev \
+	ffmpeg-dev \
 	file \
 	findutils \
 	g++ \
@@ -44,6 +43,7 @@ RUN \
 	mercurial \
 	libressl-dev \
 	patch \
+	pcre2-dev \
 	perl-dev \
 	pkgconf \
 	sdl-dev \
@@ -54,7 +54,6 @@ RUN \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	gnu-libiconv-dev && \
 
-
 # add runtime dependencies required in build stage
  apk add --no-cache \
 	bsd-compat-headers \
@@ -63,9 +62,10 @@ RUN \
 	gzip \
 	libcrypto1.0 \
 	libcurl	\
+	libressl \
 	libssl1.0 \
 	linux-headers \
-	libressl \
+	pcre2 \
 	perl \
 	perl-archive-zip \
 	perl-boolean \
@@ -80,6 +80,7 @@ RUN \
 	perl-dbd-sqlite \
 	perl-dbi \
 	perl-digest-sha1 \
+	perl-doc \
 	perl-file-slurp \
 	perl-file-temp \
 	perl-file-which \
@@ -188,8 +189,8 @@ RUN \
 
 # install runtime packages
  apk add --no-cache \
-	${FFMPEG_VER} \
-	${FFMPEG_VER}-libs \
+	ffmpeg \
+	ffmpeg-libs \
 	libhdhomerun-libs \
 	libdvbcsa \
 #	libva \
