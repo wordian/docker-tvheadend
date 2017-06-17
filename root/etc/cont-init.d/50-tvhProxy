@@ -7,7 +7,7 @@ fi
 
 # install tvhProxy and its dependencies
 apk add --no-cache --quiet git gcc python-dev musl-dev py-pip
-pip install --upgrade pip
+pip install --upgrade --quiet pip
 
 mkdir -p /tvhProxy
 wget -q "https://raw.githubusercontent.com/jkaberg/tvhProxy/master/tvhProxy.py" -P /tvhProxy
