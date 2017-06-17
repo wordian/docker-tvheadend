@@ -212,7 +212,7 @@ RUN \
 COPY root/ /
 
 # install dependencies for epg2xml
-RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl
+RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl && \
 
 # download epg2xml
  mkdir /epg2xml
