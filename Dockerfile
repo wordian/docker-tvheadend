@@ -212,14 +212,12 @@ RUN \
 COPY root/ /
 
 # install dependencies for epg2xml
-RUN apk add --no-cache py-requests py-lxml py-pip && \
-	pip install --upgrade pip && \
-	pip install beautifulsoup4 && \
+RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl
 
 # download epg2xml
  mkdir /epg2xml
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" /epg2xml/
-ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.py" /epg2xml/
+ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.php" /epg2xml/
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
 # set permissions on tv_grab_files

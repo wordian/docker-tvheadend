@@ -4,7 +4,7 @@
 DESC="Korea (epg2xml)"
 VER="0.1"
 CAP="baseline"
-EPG2XML_PY="/epg2xml/epg2xml.py"
+EPG2XML_SCRIPT="/epg2xml/epg2xml.php"
 
 for arg
 do
@@ -25,9 +25,9 @@ then
     exit 0
 fi
 
-if [ -f $EPG2XML_PY ]
+if [ -f $EPG2XML_SCRIPT ]
 then
-    python $EPG2XML_PY $args
+    php7 -f $EPG2XML_SCRIPT -- $args
 fi
 
 exit 0
