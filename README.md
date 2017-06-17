@@ -88,7 +88,7 @@ Socket으로 직접 밀어 넣는 external grabber와는 달리 내부적으로 
 
 ## 덧붙이기
 
-#### Static FFMPEG 설치 방법
+#### Static FFMPEG 추가 설치
 
 [tobbenb/tvheadend-unstable](https://github.com/tobbenb/docker-containers/tree/master/tvheadend-unstable)에서 참고한 방법인데 외부의 [static build binary](https://johnvansickle.com/ffmpeg/)를 적용하는 것이다. 아래와 같은 차이가 있다. 오른쪽이 자체 빌드 버전.
 
@@ -96,3 +96,13 @@ Socket으로 직접 밀어 넣는 external grabber와는 달리 내부적으로 
 ---|---
 
 다음과 같이 환경 변수를 통해 설치할 수 있다. ```FFMPEGBIN_VER=latest``` 바이너리 배포 사이트가 과거 버전을 공개하지 않으므로 ```latest```가 유일한 옵션이다.
+
+#### tvhProxy 추가 설치
+
+[tvhProxy](https://github.com/jkaberg/tvhProxy)란, tvheadend의 영상 스트림을 Plex의 DVR (녹화)에서 활용할 수 있도록 도와주는 프록시이다. 설치 방법은 역시 동일하게 환경 변수를 통해서 가능하다.
+```
+TVH_URL=http://username:password@localhost:9981
+```
+tvheadend와 같이 내장했으므로 localhost가 맞고 그 외 username, password, port를 자신의 환경에 맞게 수정해서 사용한다.
+
+참고로 위의 추가 설치를 활성화 하면 컨테이너 최초 생성시 여러가지 의존성 설치를 위해 시간이 약간 걸린다.
