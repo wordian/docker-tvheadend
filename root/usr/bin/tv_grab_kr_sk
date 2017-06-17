@@ -5,7 +5,7 @@ vflag=
 cflag=
 if [ $# = 0 ]
 then
-    python /epg2xml/epg2xml.py -i SK -d
+    php7 -f /epg2xml/epg2xml.php -- -i SK -d
     exit 0
 fi
 
