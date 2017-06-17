@@ -6,7 +6,9 @@ if [[ -z "${TVH_URL}" ]]; then
 fi
 
 # install tvhProxy and its dependencies
-apk add --no-cache --quiet git gcc python-dev musl-dev
+apk add --no-cache --quiet git gcc python-dev musl-dev py-pip
+pip install --upgrade pip
+
 mkdir -p /tvhProxy
 wget -q "https://raw.githubusercontent.com/jkaberg/tvhProxy/master/tvhProxy.py" -P /tvhProxy
 wget -q "https://raw.githubusercontent.com/jkaberg/tvhProxy/master/requirements.txt" -P /tvhProxy
