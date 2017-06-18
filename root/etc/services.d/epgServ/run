@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+echo "Serving files in /epg2xml over http://localhost:9983"
+exec s6-setuidgid abc php7 -S localhost:9983 -t /epg2xml

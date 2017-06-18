@@ -218,6 +218,7 @@ RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-c
  mkdir /epg2xml
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" /epg2xml/
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.php" /epg2xml/
+ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml-web.php" /epg2xml/
 ADD "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
 # set permissions on tv_grab_files

@@ -14,20 +14,20 @@ do
        --description) printf "%s\n" "$DESC";;
        --version) printf "%s\n" "$VER";;
        --capabilities) printf "%s\n" "$CAP";;
+       -d) shift;;
        #pass through anything else
        *) [[ "${arg:0:1}" == "-" ]] || delim="\""
            args="${args} ${arg} ";;
     esac
 done
 
-if [ -z "$args" ]
-then
+if [ -z "$args" ]; then
     exit 0
 fi
 
-if [ -f $EPG2XML_SCRIPT ]
-then
+if [ -f $EPG2XML_SCRIPT ]; then
     php7 -f $EPG2XML_SCRIPT -- $args
+    cat /epg2xml/xmltv.xml
 fi
 
 exit 0
