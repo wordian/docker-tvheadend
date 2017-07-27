@@ -14,4 +14,3 @@ tar xf ffmpeg-release-64bit-static.tar && \
 find . -name ffmpeg -exec cp {} /usr/bin \; && \
 echo "$(ls | grep -m 1 "ffmpeg") is installed" && \
 rm -rf /tmp/*
-
