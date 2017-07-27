@@ -2,8 +2,8 @@ FROM wiserain/tvhbase:latest
 MAINTAINER wiserain
 
 # package version
-ARG TZ="Asia/Seoul"
-ARG EPG2XML_VER="1.2.1"
+ENV TZ="Asia/Seoul"
+ENV EPG2XML_VER="1.2.1"
 
 # copy local files
 COPY root/ /
