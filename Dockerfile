@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.6
+FROM lsiobase/alpine:3.5
 MAINTAINER saarg
 
 # set version label
@@ -30,6 +30,7 @@ RUN \
 	gcc \
 	gettext-dev \
 	git \
+	libdvbcsa-dev \
 	libgcrypt-dev \
 	libhdhomerun-dev \
 	libressl-dev \
@@ -60,6 +61,7 @@ RUN \
 	gzip \
 	libcrypto1.0 \
 	libcurl	\
+	libdvbcsa \
 	libhdhomerun-libs \
 	libressl \
 	libssl1.0 \
@@ -142,15 +144,10 @@ RUN \
  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
  ./configure \
-	--disable-ffmpeg_static \
-	--disable-hdhomerun_static \
-	--disable-libfdkaac_static \
-	--disable-libmfx_static \
-	--disable-libtheora_static \
-	--disable-libvorbis_static \
-	--disable-libvpx_static \
-	--disable-libx264_static \
-	--disable-libx265_static \
+ 	--enable-bundle \
+ 	--enable-dvbcsa \
+ 	--enable-hdhomerun_static\
+ 	--enable-libffmpeg_static \
 	--enable-hdhomerun_client \
 	--enable-libav \
 	--infodir=/usr/share/info \
@@ -211,9 +208,6 @@ RUN \
 
 # copy local files
 COPY root/ /
-
-# add picons
-ADD picons.tar.bz2 /picons
 
 # ports and volumes
 EXPOSE 9981 9982
