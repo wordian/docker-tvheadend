@@ -5,20 +5,18 @@ if [[ -z "${EPG2XML_VER}" ]]; then
 	exit 0
 fi
 
-# make folders
-mkdir /epg2xml
+# make folder
+[[ ! -d "/epg2xml" ]] && mkdir /epg2xml
 
 # download and update php scripts
 wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.php" -O /epg2xml/epg2xml.php
 wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml-web.php" -O /epg2xml/epg2xml-web.php
 
-# also update json files if forced
-if [[ "${EPG2XML_JSON}" == "UPDATE" ]] || [[ ! -f /epg2xml/Channel.json ]]; then
-	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" /epg2xml/Channel.json
-fi
-if [[ "${EPG2XML_JSON}" == "UPDATE" ]] || [[ ! -f /epg2xml/epg2xml.json ]]; then
-	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" /epg2xml/epg2xml.json
-fi
+# also update json files if not exist
+[[ ! -f /epg2xml/Channel.json ]] && \
+	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" -O /epg2xml/Channel.json
+[[ ! -f /epg2xml/epg2xml.json ]] && \
+	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" -O /epg2xml/epg2xml.json
 
 # permissions
 chown -R abc:abc \

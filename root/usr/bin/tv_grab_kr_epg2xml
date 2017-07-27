@@ -26,7 +26,7 @@ if [ -z "$args" ]; then
 fi
 
 if [ -f $EPG2XML_SCRIPT ]; then
-    php7 -f $EPG2XML_SCRIPT -- $args
+    php7 -f $EPG2XML_SCRIPT -- $args -o /epg2xml/xmltv.xml
     cat /epg2xml/xmltv.xml
 fi
 

@@ -48,7 +48,7 @@ services:
 
 #### Synology DSM 사용시:
 
-[별도 문서 참조](docs/how-to-run-on-synology.md)
+[별도 문서 참조](assets/how-to-run-on-synology.md)
 
 ## 관련 설정들
 
@@ -72,7 +72,7 @@ docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend를 �
 
 컨테이너를 실행 후 ```http://localhost:9981/```를 통해 WEBUI로 접속한 다음, ```Configuration > Channel / EPG > EPG Grabber Modules```로 이동하면 아래 이미지와 같이 3개의 IPTV 서비스를 위한 internal XMLTV grabber가 마련되어 있으니 Enable 시켜서 사용하면 된다.
 
-![](docs/images/PicPick_Capture_20170409_002.png)
+![](assets/images/PicPick_Capture_20170409_002.png)
 
 이미지 태그 기준 4.1-2493 버전부터 아래와 같은 하드코딩이 아니라 ```epg2xml.py```의 옵션을 전달 받아 실행하는 모듈을 추가하였다.
 ```
@@ -84,7 +84,7 @@ python /epg2xml/epg2xml.py -i {KT/LG/SK} -d
 
 Socket으로 직접 밀어 넣는 external grabber와는 달리 내부적으로 cron을 실행한다. 아래 그림과 같이 EPG Grabber 탭에 보면 기본 설정으로 매일 12시 24시 4분에 실행해서 epg를 가져온다. 하지만 버그가 있는지 기본 설정을 무시하고 끊임없이 실행되는 문제가 초반에 있다. 그러므로 설정을 바꿔서 저장해주고 Re-run Internal EPG Grabbers를 눌러서 실행해준다. 어떤 값으로든 변경 후에는 문제없이 정상적으로 동작하는 것을 확인하였다. Cron 설정 방법에 대해서는 [링크](http://docs.tvheadend.org/webui/config_epggrab/#cron-multi-line-config-text-areas)를 참고바람.
 
-![](docs/images/PicPick_Capture_20170331_001.png)
+![](assets/images/PicPick_Capture_20170331_001.png)
 
 ## 덧붙이기
 
@@ -92,7 +92,7 @@ Socket으로 직접 밀어 넣는 external grabber와는 달리 내부적으로 
 
 [tobbenb/tvheadend-unstable](https://github.com/tobbenb/docker-containers/tree/master/tvheadend-unstable)에서 참고한 방법인데 외부의 [static build binary](https://johnvansickle.com/ffmpeg/)를 적용하는 것이다. 아래와 같은 차이가 있다. 오른쪽이 자체 빌드 버전.
 
-![](docs/images/PicPick_Capture_20170419_001.png) | ![](docs/images/PicPick_Capture_20170419_002.png)
+![](assets/images/PicPick_Capture_20170419_001.png) | ![](assets/images/PicPick_Capture_20170419_002.png)
 ---|---
 
 다음과 같이 환경 변수를 통해 설치할 수 있다. ```FFMPEGBIN_VER=latest``` 바이너리 배포 사이트가 과거 버전을 공개하지 않으므로 ```latest```가 유일한 옵션이다.

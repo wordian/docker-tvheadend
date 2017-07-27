@@ -1,4 +1,4 @@
-FROM wiserain/tvhbase:latest
+FROM wiserain/tvhbase:stable
 MAINTAINER wiserain
 
 # package version
