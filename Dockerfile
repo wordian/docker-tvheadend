@@ -7,6 +7,7 @@ MAINTAINER wiserain
 
 # default variables
 ENV TZ="Asia/Seoul"
+ENV EPG2XML_VER="${EPG2XML_VER}"
 
 # copy local files
 COPY root/ /
