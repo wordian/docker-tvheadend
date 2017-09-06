@@ -3,7 +3,7 @@ MAINTAINER wiserain
 
 # package version
 ENV TZ="Asia/Seoul"
-ENV EPG2XML_VER="1.2.1"
+ENV EPG2XML_VER="1.2.2"
 
 # copy local files
 COPY root/ /
