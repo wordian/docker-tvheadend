@@ -1,3 +1,10 @@
 #!/usr/bin/env bash
 
-docker build -t ${IMAGE_NAME} -f ${DOCKER_TAG}.Dockerfile .
+if [ "${DOCKER_TAG}" != "stable" ] && [ "${DOCKER_TAG}" != "testing" ]; then
+	DOCKER_TAG="latest"
+fi
+
+docker build -t ${IMAGE_NAME} \
+			--build-arg BASE_IMAGE_TAG=${DOCKER_TAG} \
+			--build-arg EPG2XML_VER="1.2.2" \
+			.
