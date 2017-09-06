@@ -9,15 +9,19 @@ fi
 [[ ! -d "/epg2xml" ]] && mkdir /epg2xml
 
 # download and update php scripts
-wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.php" -O /epg2xml/epg2xml.php
-wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml-web.php" -O /epg2xml/epg2xml-web.php
+wget -q "https://github.com/wonipapa/epg2xml/archive/v${EPG2XML_VER}.tar.gz" -P /tmp && \
+	cd /tmp && tar -xzf "v${EPG2XML_VER}.tar.gz"
+mv "/tmp/epg2xml-${EPG2XML_VER}/*.php" /epg2xml/
 
-# also update json files if not exist
+# also update .json files if not exist
 [[ ! -f /epg2xml/Channel.json ]] && \
-	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/Channel.json" -O /epg2xml/Channel.json
+	mv "/tmp/epg2xml-${EPG2XML_VER}/Channel.json" /epg2xml/
 [[ ! -f /epg2xml/epg2xml.json ]] && \
-	wget -q "https://raw.githubusercontent.com/wonipapa/epg2xml/release-${EPG2XML_VER}/epg2xml.json" -O /epg2xml/epg2xml.json
+	mv "/tmp/epg2xml-${EPG2XML_VER}/epg2xml.json" /epg2xml/
 
 # permissions
 chown -R abc:abc \
 	/epg2xml
+
+# cleanup
+rm -rf /tmp/*
