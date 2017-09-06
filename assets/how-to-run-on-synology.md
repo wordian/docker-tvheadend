@@ -1,6 +1,6 @@
 # Synology에서 docker-tvheadend 실행 방법
 
-이 문서는 Synology DSM에서 docker-tvheadend를 실행하는 방법을 설명한다.
+이 문서는 Synology DSM에서 docker-tvheadend를 실행하는 방법을 설명한다. 작성 시점이 오래 되어 상세 내용은 조금 다를 수 있으니 [README](../README.md)의 내용을 우선으로 한다.
 
 ### DSM의 GUI를 이용하는 방법
 
@@ -32,6 +32,8 @@
 
 7\. 컨테이너 내부의 공간(Mount path)과 실제 우리가 사용하는 공간을 서로 링크해준다. /config는 tvheadend의 모든 설정이 저장되는 곳이며, /recordings의 경우는 녹화하게 될 경우를 위한 template 폴더이다. 이런 식으로 원하는 경로를 마운트하고 docker container에서 가져다 쓰면 된다.
 
+**추가 알림** 2017년 7월 이후 업데이트된 epg2xml 정보를 저장하기 위한 볼륨을 추가로 설정해 주어야 한다. 예를 들어, ```/docker/tvh-test/epg2xml```과 ```/epg2xml```이 쌍을 이루도록.
+
 ![](images/PicPick_Capture_20170316_008.png)
 
 8\. 네트워크는 호스트와 동일 네트워크 사용에 체크. 이전 글에서도 언급했지만, docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend는 **무조건 hosted network** 를 사용해야 한다. 일부 낮은 버전에서는 지원하지 않으니 참고. (예를 들면 DSM 5.2)
@@ -39,6 +41,8 @@
 ![](images/PicPick_Capture_20170316_009.png)
 
 9\. 이제 환경변수를 입력해준다. 이 변수는 그대로 가상 시스템에 전달되어 활용 가능하다. 먼저 ```TZ``` 은 시스템이 사용할 시간대 설정이다. 이게 제대로 안되면 EPG에 시간차가 발생한다. ```PGID``` 와 ```PUID``` 는 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers) 의 중간쯤에 잘 설명되어 있는데, 시놀로지에서는 docker가 root 권한으로 동작하므로 아마 0이리라 예상은 되지만, 각자 ssh로 들어가서 확인해보길 바란다.
+
+이 단계에서 환경변수를 추가함으로써 여러가지 addon을 설치할 수 있다. 예를 들어, tvhProxy를 설치하고 싶다면 ```TVH_URL```이라는 변수를 만들고 ```http://username:password@localhost:9981``` 값을 설정해 준다. 자세한 내용은 [README](../README.md)를 참고바람.
 
 ![](images/PicPick_Capture_20170316_010.png)
 
@@ -66,14 +70,18 @@
 
 ### docker-compose를 이용하는 방법
 
-putty등으로 ssh로 접속하여 docker 경로로 이동한다. (docker는 기본적으로 root 권한이 필요)
+putty등의 프로그램을 이용해 ssh로 접속한다. docker는 기본적으로 root로 동작하므로 root 권한을 획득하고,
 
 ```bash
 sudo -i
-cd /volume1/docker
 ```
 
-docker-compose.yml 파일을 생성한다.
+접속하여 docker 경로로 이동한다. (시스템마다 다를 수 있음)
+
+```bash
+cd /volume1/docker
+```
+docker-compose.yml 파일을 생성한다. (이미 있으면 적절히 편집)
 
 ```bash
 vi docker-compose.yml
@@ -93,10 +101,12 @@ services:
     volumes:
       - /volume1/docker/tvh-test/config:/config
       - /volume1/docker/tvh-test/recordings:/recordings
+      - /volume1/docker/tvh-test/epg2xml:/epg2xml
     environment:
       - PUID=0
       - PGID=0
       - TZ=Asia/Seoul
+      - TVH_URL='http://username:password@localhost:9981'
 ```
 
 이 내용은 앞에서 DSM GUI로 설정했던 컨테이너의 설정을 그대로 반영한다. 자신의 환경에 맞게 volumes나 container_name 등을 수정하여 사용하도록 한다. 나중에 다른 이미지로부터의 컨테이너가 있으면 services 아래에 추가하면 된다. 저장하고 나와서 아래 명령어를 치면 컨테이너를 생성하고 실행한다.
