@@ -111,3 +111,7 @@ TVH_URL=http://username:password@localhost:9981
 tvheadend와 같이 내장했으므로 localhost가 맞고 그 외 username, password, port를 자신의 환경에 맞게 수정해서 사용한다.
 
 참고로 위의 추가 설치를 활성화 하면 컨테이너 최초 생성시 여러가지 의존성 설치를 위해 시간이 약간 걸린다.
+
+## 자주 묻는 질문
+
+[문제가 발생하면 읽어보세요.](assets/faqs.md)
