@@ -8,14 +8,13 @@ fi
 # make folder
 [[ ! -d "/epg2xml" ]] && mkdir /epg2xml
 
-# download and update php scripts
+# download and update relevant scripts
 wget -q "https://github.com/wonipapa/epg2xml/archive/v${EPG2XML_VER}.tar.gz" -P /tmp && \
 	cd /tmp && tar -xzf "v${EPG2XML_VER}.tar.gz"
 mv "/tmp/epg2xml-${EPG2XML_VER}"/*.php /epg2xml/
+mv "/tmp/epg2xml-${EPG2XML_VER}"/Channel.json /epg2xml/
 
-# also update .json files if not exist
-[[ ! -f /epg2xml/Channel.json ]] && \
-	mv "/tmp/epg2xml-${EPG2XML_VER}"/Channel.json /epg2xml/
+# also update epg2xml.json files if not exist
 [[ ! -f /epg2xml/epg2xml.json ]] && \
 	mv "/tmp/epg2xml-${EPG2XML_VER}"/epg2xml.json /epg2xml/
 
