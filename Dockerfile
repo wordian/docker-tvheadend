@@ -1,13 +1,12 @@
 # package version
 ARG BASE_IMAGE_TAG
-ARG EPG2XML_VER
-
 FROM wiserain/tvhbase:$BASE_IMAGE_TAG
 MAINTAINER wiserain
 
 # default variables
-ENV TZ="Asia/Seoul"
+ARG EPG2XML_VER
 ENV EPG2XML_VER="${EPG2XML_VER}"
+ENV TZ="Asia/Seoul"
 
 # copy local files
 COPY root/ /
@@ -22,4 +21,3 @@ RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-c
 EXPOSE 9981 9982
 VOLUME /config /recordings /epg2xml
 WORKDIR /epg2xml
-
