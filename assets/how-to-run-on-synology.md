@@ -14,7 +14,7 @@
 
 ![](images/PicPick_Capture_20170316_003.png)
 
-3\. ```wiserain/tvheadend```를 검색하여 다운로드 한다. 드롭 다운 메뉴를 펼쳐 보면 과거 이미지 버전이 있으니 필요할 경우 예전 버전으로 돌아가는 것도 가능하다. 기본값은 latest이다.
+3\. ```wiserain/tvheadend```를 검색하여 다운로드 한다. 드롭 다운 메뉴를 펼쳐 보면 과거 이미지 버전이 있으니 필요할 경우 예전 버전으로 돌아가는 것도 가능하다. ~~기본값은 latest이다.~~ latest는 [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있으니 stable tag 사용을 권한다.
 
 ![](images/PicPick_Capture_20170316_004.png)
 
@@ -36,17 +36,17 @@
 
 ![](images/PicPick_Capture_20170316_008.png)
 
-8\. 네트워크는 호스트와 동일 네트워크 사용에 체크. 이전 글에서도 언급했지만, docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend는 **무조건 hosted network** 를 사용해야 한다. 일부 낮은 버전에서는 지원하지 않으니 참고. (예를 들면 DSM 5.2)
+8\. 네트워크는 호스트와 동일 네트워크 사용에 체크. [README](../README.md)에서도 언급했지만, docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend는 **무조건 hosted network** 를 사용해야 한다. 일부 낮은 버전에서는 지원하지 않으니 참고. (예를 들면 DSM 5.2)
 
 ![](images/PicPick_Capture_20170316_009.png)
 
-9\. 이제 환경변수를 입력해준다. 이 변수는 그대로 가상 시스템에 전달되어 활용 가능하다. 먼저 ```TZ``` 은 시스템이 사용할 시간대 설정이다. 이게 제대로 안되면 EPG에 시간차가 발생한다. ```PGID``` 와 ```PUID``` 는 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers) 의 중간쯤에 잘 설명되어 있는데, 시놀로지에서는 docker가 root 권한으로 동작하므로 아마 0이리라 예상은 되지만, 각자 ssh로 들어가서 확인해보길 바란다.
+9\. 이제 환경변수를 입력해준다. 이 변수는 그대로 가상 시스템에 전달되어 활용 가능하다. 먼저 ```TZ``` 은 시스템이 사용할 시간대 설정이다. 이게 제대로 안되면 EPG에 시간차가 발생한다. ```PGID``` 와 ```PUID``` 는 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers) 중간쯤에 잘 설명되어 있는데, 시놀로지에서는 docker가 root 권한으로 동작하므로 아마 0이리라 예상은 되지만, 각자 ssh로 들어가서 확인해보길 바란다.
 
 이 단계에서 환경변수를 추가함으로써 여러가지 addon을 설치할 수 있다. 예를 들어, tvhProxy를 설치하고 싶다면 ```TVH_URL```이라는 변수를 만들고 ```http://username:password@localhost:9981``` 값을 설정해 준다. 자세한 내용은 [README](../README.md)를 참고바람.
 
 ![](images/PicPick_Capture_20170316_010.png)
 
-10\. OK를 누르면 설정 내용을 다시 한번 확인하고 create와 동시에 run하도록 체크를 해준다. (원하면 따로 해도 되고)
+10\. OK를 누르면 설정 내용을 다시 한번 확인하고 create와 동시에 run하도록 체크를 해준다. (원하면 따로도 가능)
 
 ![](images/PicPick_Capture_20170316_011.png)
 
@@ -87,7 +87,7 @@ docker-compose.yml 파일을 생성한다. (이미 있으면 적절히 편집)
 vi docker-compose.yml
 ```
 
-아래 내용을 붙여 넣는다. yml 문법을 따르므로 띄어쓰기 indent를 주의한다.
+아래 내용을 붙여 넣는다. yml 문법을 따르므로 띄어쓰기와 indent에 주의한다.
 
 ```yml
 version: '2'
@@ -116,3 +116,7 @@ docker-compose up -d <service name e.g. tvh-test>
 ```
 
 이후 과정은 동일하게 웹 <http://localhost:9981/> 에서 진행한다.
+
+### 자주 묻는 질문
+
+[문제가 발생하면 읽어보세요.](assets/faqs.md)
