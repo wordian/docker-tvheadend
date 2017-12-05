@@ -1,8 +1,8 @@
 #!/usr/bin/with-contenv bash
 
-# check if EPG2XML_VER exist
-if [[ -z "${EPG2XML_VER}" ]]; then
-	echo "ERROR: EPG2XML_VER undefined"
+# check EPG2XML_VER
+if [[ "${EPG2XML_VER}" == "none" ]]; then
+	echo "Skipping epg2xml update"
 	exit 0
 fi
 
@@ -34,7 +34,7 @@ cd /tmp && \
 	mv /tmp/*.php /epg2xml/
 
 # update Channel.json
-if [[ ! -f /epg2xml/Channel.json ]] || [[ ! -z "${UPDATE_CHANNEL}" ]]; then
+if [[ ! -f /epg2xml/Channel.json ]] || [[ "${UPDATE_CHANNEL}" != "false" ]]; then
 	mv /tmp/Channel.json /epg2xml/
 	echo "Channel.json updated"
 fi
