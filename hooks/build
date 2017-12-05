@@ -3,9 +3,7 @@
 if [ "${DOCKER_TAG}" != "stable" ] && [ "${DOCKER_TAG}" != "testing" ] && [ "${DOCKER_TAG}" != "vaapi" ]; then
 	DOCKER_TAG="latest"
 fi
-EPG2XML_VER=1.2.3
 
 docker build \
 		--build-arg BASE_IMAGE_TAG=${DOCKER_TAG} \
-		--build-arg "EPG2XML_VER=${EPG2XML_VER}" \
 		-t ${IMAGE_NAME} .

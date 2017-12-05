@@ -4,8 +4,7 @@ FROM wiserain/tvhbase:$BASE_IMAGE_TAG
 MAINTAINER wiserain
 
 # default variables
-ARG EPG2XML_VER
-ENV EPG2XML_VER="${EPG2XML_VER}"
+ENV EPG2XML_VER="latest"
 ENV TZ="Asia/Seoul"
 
 # copy local files
