@@ -14,7 +14,7 @@ COPY root/ /
 RUN chmod 555 /usr/bin/tv_grab_kr_*
 
 # install dependencies for epg2xml
-RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl
+RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl jq
 
 # ports and volumes
 EXPOSE 9981 9982
