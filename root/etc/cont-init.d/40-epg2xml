@@ -1,7 +1,7 @@
 #!/usr/bin/with-contenv bash
 
 # check EPG2XML_VER
-if [[ "${EPG2XML_VER}" == "none" ]]; then
+if [[ -z "${EPG2XML_VER}" ]]; then
 	echo "Skipping epg2xml update"
 	exit 0
 fi

@@ -1,4 +1,0 @@
-#!/usr/bin/with-contenv bash
-
-[[ "${REFRESH_EPGDB}" == "true" ]] && \
-	rm -f /config/epgdb.v2
