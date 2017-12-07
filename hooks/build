@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 
-if [ "${DOCKER_TAG}" != "stable" ] && [ "${DOCKER_TAG}" != "testing" ] && [ "${DOCKER_TAG}" != "vaapi" ]; then
-	DOCKER_TAG="latest"
+if [ "${DOCKER_TAG}" != "stable" ] && [ "${DOCKER_TAG}" != "vaapi" ]; then
+	BASE_IMAGE_FROM="latest"
+else
+	BASE_IMAGE_FROM="${DOCKER_TAG}"
 fi
 
 docker build \
-		--build-arg BASE_IMAGE_TAG=${DOCKER_TAG} \
+		--build-arg BASE_IMAGE_TAG=${BASE_IMAGE_FROM} \
 		-t ${IMAGE_NAME} .

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+docker tag $IMAGE_NAME $DOCKER_REPO:$DOCKER_TAG
+docker push $DOCKER_REPO:$DOCKER_TAG
+
+if [ "${DOCKER_TAG}" != "stable" ] && [ "${DOCKER_TAG}" != "vaapi" ] && [ "${DOCKER_TAG}" != "testing" ]; then
+	docker tag $IMAGE_NAME $DOCKER_REPO:latest
+	docker push $DOCKER_REPO:latest
+fi
+
+
