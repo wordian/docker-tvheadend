@@ -48,3 +48,38 @@ docker-compose exec <service name> bash
 
 ### EPG Grabber Modules이 안보여요.
 설정에서 다 보이게 바꿔주세요. [참고](https://www.clien.net/service/board/cm_nas/9913990)
+
+### vaapi 버전은 어떻게 사용하나요?
+
+우선 로컬 호스트에서
+```
+ls /dev/dri
+```
+를 실행했을 때 렌더러가 보여야 합니다. 없으면 해당 버전의 이미지를 쓰는 것이 무의미 합니다.
+
+그런 다음 아래의 ```docker-compose.yml```을 통해서 컨테이너를 설정하면 됩니다.
+
+```yaml
+version: '2'
+
+services:
+  tvh-vaapi:
+    container_name: tvh-vaapi
+    image: wiserain/tvheadend:vaapi
+    network_mode: "host"
+    volumes:
+      - /volume1/docker/tvh-vaapi/config:/config
+      - /volume1/docker/tvh-vaapi/recordings:/recordings
+      - /volume1/docker/tvh-vaapi/epg2xml:/epg2xml
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    devices:
+      - "/dev/dri:/dev/dri"
+    environment:
+      - PUID=0
+      - PGID=0
+      - DISPLAY=:0
+```
+
+가장 중요한 것은 devices 항목을 통해 장치 드라이버(렌더러)를 연결해줘야 하며, PUID와 PGID도 적절한 권한이 필요합니다. 명확한 레퍼런스는 없지만 테스트 결과 보통의 user 권한으로 실행된 docker container는 vaapi 가속을 이용하지 못하는 것을 발견했습니다. 추천하지 않지만 잘 안된다면 root 권한으로 시험해보기 바랍니다.
+
+그런 다음 설정 >> Stream >> Codec Profiles에서 vaapi 관련 코덱을 등록하고 스트림 프로파일에서 연동해서 사용하면 됩니다.
