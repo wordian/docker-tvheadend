@@ -133,4 +133,4 @@ docker-compose up -d <service name e.g. tvh-test>
 
 ### 자주 묻는 질문
 
-[문제가 발생하면 읽어보세요.](assets/faqs.md)
+[문제가 발생하면 읽어보세요.](faqs.md)
