@@ -1,4 +1,4 @@
 #!/usr/bin/with-contenv bash
 
-echo "Serving files in /epg2xml over http://0.0.0.0:9983"
-exec s6-setuidgid abc php7 -S 0.0.0.0:9983 -t /epg2xml
+echo "Serving files in /epg2xml over http://0.0.0.0:${EPG_PORT}"
+exec s6-setuidgid abc php7 -S 0.0.0.0:${EPG_PORT} -t /epg2xml

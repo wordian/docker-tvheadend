@@ -5,6 +5,7 @@ MAINTAINER wiserain
 
 # default variables
 ENV EPG2XML_VER="latest"
+ENV EPG_PORT="9983"
 ENV TZ="Asia/Seoul"
 
 # copy local files
