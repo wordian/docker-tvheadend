@@ -33,18 +33,19 @@ RUN \
 	libdvbcsa-dev \
 	libgcrypt-dev \
 	libhdhomerun-dev \
-	libressl-dev \
 	libtool \
 	libvpx-dev \
 	libxml2-dev \
 	libxslt-dev \
+	libva-dev \
 	make \
-	mercurial \
+	openssl-dev \
 	opus-dev \
 	patch \
 	pcre2-dev \
 	perl-dev \
 	pkgconf \
+	pngquant \
 	sdl-dev \
 	uriparser-dev \
 	wget \
@@ -66,12 +67,14 @@ RUN \
 	libcurl	\
 	libdvbcsa \
 	libhdhomerun-libs \
-	libressl \
 	libssl1.0 \
 	libvpx \
 	libxml2 \
 	libxslt \
+	libva \
+	libva-intel-driver \
 	linux-headers \
+	openssl \
 	opus \
 	pcre2 \
 	perl \
@@ -139,11 +142,9 @@ RUN \
  echo "**** install perl modules for xmltv ****" && \
  curl -L http://cpanmin.us | perl - App::cpanminus && \
  cpanm --installdeps /tmp/patches && \
- echo "**** build dvb-apps ****" && \
- hg clone http://linuxtv.org/hg/dvb-apps /tmp/dvb-apps && \
- cd /tmp/dvb-apps && \
- make -C lib && \
- make -C lib install && \
+ echo "**** remove musl iconv.h and replace with gnu-iconv.h ****" && \
+ rm -rf /usr/include/iconv.h && \
+ cp /usr/include/gnu-libiconv/iconv.h /usr/include/iconv.h && \
  echo "**** build tvheadend ****" && \
  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
@@ -154,13 +155,14 @@ RUN \
  	--enable-libffmpeg_static \
 	--enable-hdhomerun_client \
 	--enable-libav \
+	--enable-pngquant \
+	--enable-trace \
+	--enable-vaapi \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
 	--mandir=/usr/share/man \
 	--prefix=/usr \
 	--sysconfdir=/config && \
- sed -i -e 's/ffmpeg.libx264.diff/ffmpeg.libx264.diff ffmpeg.libressl.diff/' Makefile.ffmpeg && \
- cp /tmp/patches/ffmpeg.libressl.diff /tmp/tvheadend/support/patches/ && \
  make && \
  make install && \
  echo "**** build XMLTV ****" && \
