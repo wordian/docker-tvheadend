@@ -72,7 +72,7 @@ Socket으로 직접 밀어 넣는 external grabber와 달리 내부적으로 cro
 - **latest**: 최신 이미지 버전. ~~대부분의 유저에게 권장 됨.~~ [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있다. 비유를 들자면 Firefox나 LineageOS의 Nightly 빌드, 아니면 iOS의 Public Beta와 유사하다.
 - **ver-build**: [과거 이미지 버전](https://hub.docker.com/r/wiserain/tvheadend/tags/)으로 tvheadend 버전을 따른다. 예를 들어 ```4.1-2533```.
 - **stable**: 최신 tvheadend release 버전 [참고](https://doozer.io/tvheadend/tvheadend)
-- **vaapi**: latest 빌드에서 vaapi 관련 옵션을 활성화 한 버전 (실험적)
+- **vaapi**: ~~latest 빌드에서 vaapi 관련 옵션을 활성화 한 버전 (실험적)~~ 4.3-1102 부터 latest 태그에서 vaapi를 지원하게 됨에 따라 더 이상 유효하지 않다.
 - **testing**: docker 이미지 테스트 버전 (개발용)
 
 #### 네트워크 모드
@@ -99,7 +99,7 @@ docker-tvheadend의 동작을 제어하는 환경변수와 가능한 옵션을 �
 1.  컨테이너를 시작할 때마다 ```/etc/cont-init.d/```와 ```/etc/services.d/``` 안의 스크립트를 이용해서 초기화를 진행하고 프로그램을 실행한다. 무슨 일이 일어났는지 궁금하거나 생각대로 되지 않으면 로그를 확인하자.
 2.  epg2xml 동작 언어는 php이다. 성능은 python이 약간 좋지만 그 차이가 미미한 반면, docker로 deploy할 때 php가 꽤 유용한 기능을 제공한다.
 3.  ```epg2xml.json```은 경로에 파일이 없는 경우에만 다운로드하여 설치하고 경로에 있으면 원래 것을 보존한다. 따라서 같이 업데이트하고 싶으면 파일들을 지우고 컨테이너 삭제/생성/실행하면 된다. 그것도 싫으면 그냥 수동으로 받아서 복사/붙여넣기 하면 된다.
-4.  예전에는 내부적으로 epg2xml를 실행할 때 다음의 arguments ```-i {KT/SK/LG} -d```를 썻으나 이제는 ```-i {KT/SK/LG} -o /epg2xml/xmltv.xml```로 실행한 다음 ```cat /epg2xml/xmltv.xml```로 불러온다. 중간에 파일로 저장하는 과정이 추가된 것이다.
+4.  예전에는 내부적으로 epg2xml를 실행할 때 다음의 arguments ```-i {KT/SK/LG} -d```를 썼으나 이제는 ```-i {KT/SK/LG} -o /epg2xml/xmltv.xml```로 실행한 다음 ```cat /epg2xml/xmltv.xml```로 불러온다. 중간에 파일로 저장하는 과정이 추가된 것이다.
 5.  EPG를 ```/epg2xml/xmltv.xml```에 한 번 저장하는 이유는 이 경로를 웹서버로 노출시켜 다른 앱에서도 가져다 쓰기 쉽게 하기 위함이다. php 내장 기능을 이용해 ```/epg2xml``` 폴더의 내용이 ```http://<tvheadend ip>:9983/```으로 서비스 되므로, tvheadend가 실행되면서 주기적으로 파일로 저장해 놓은 EPG 정보를 ```http://<<tvheadend ip>:9983/xmltv.xml```로 접속하여 쓸 수 있다. 원래는 tvhProxy를 위해 짜낸 기능이지만 여러모로 유용하게 사용할 수 있을 것이다.
 
 
