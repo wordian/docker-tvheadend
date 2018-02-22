@@ -159,6 +159,7 @@ RUN \
 	--enable-hdhomerun_client \
 	--enable-libav \
 	--enable-pngquant \
+	--enable-trace \
 	--enable-vaapi \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
