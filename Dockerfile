@@ -33,13 +33,13 @@ RUN \
 	libdvbcsa-dev \
 	libgcrypt-dev \
 	libhdhomerun-dev \
-	libressl-dev \
 	libtool \
 	libvpx-dev \
 	libxml2-dev \
 	libxslt-dev \
 	make \
 	mercurial \
+	openssl-dev \
 	opus-dev \
 	patch \
 	pcre2-dev \
@@ -66,12 +66,12 @@ RUN \
 	libcurl	\
 	libdvbcsa \
 	libhdhomerun-libs \
-	libressl \
 	libssl1.0 \
 	libvpx \
 	libxml2 \
 	libxslt \
 	linux-headers \
+	openssl \
 	opus \
 	pcre2 \
 	perl \
