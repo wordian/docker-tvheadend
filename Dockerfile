@@ -46,6 +46,7 @@ RUN \
 	pcre2-dev \
 	perl-dev \
 	pkgconf \
+	pngquant \
 	sdl-dev \
 	uriparser-dev \
 	wget \
@@ -157,6 +158,7 @@ RUN \
  	--enable-libffmpeg_static \
 	--enable-hdhomerun_client \
 	--enable-libav \
+	--enable-pngquant \
 	--enable-vaapi \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
