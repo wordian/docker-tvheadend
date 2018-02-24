@@ -1,6 +1,6 @@
 # package version
-ARG BASE_IMAGE_TAG
-FROM wiserain/tvhbase:$BASE_IMAGE_TAG
+ARG BASE_IMAGE
+FROM $BASE_IMAGE
 MAINTAINER wiserain
 
 # default variables
