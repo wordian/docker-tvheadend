@@ -46,7 +46,7 @@ services:
       - PGID=<GID for user>
 ```
 
-#### Synology DSM 사용시: [별도 문서 참조](assets/how-to-run-on-synology.md)
+#### Synology DSM 사용시: [별도 문서 참조](https://github.com/wiserain/docker-tvheadend/blob/epgkr/assets/how-to-run-on-synology.md)
 
  작성 시점이 오래 되어 상세 내용은 조금 다를 수 있으니 지금 보고 있는 문서의 내용을 우선으로 한다.
 
@@ -106,4 +106,4 @@ docker-tvheadend의 동작을 제어하는 환경변수와 가능한 옵션을 �
 
 ## 자주 묻는 질문
 
-[문제가 발생하면 읽어보세요.](assets/faqs.md)
+[문제가 발생하면 읽어보세요.](https://github.com/wiserain/docker-tvheadend/blob/epgkr/assets/faqs.md)

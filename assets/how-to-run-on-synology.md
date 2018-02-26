@@ -1,6 +1,6 @@
 # Synology에서 docker-tvheadend 실행 방법
 
-이 문서는 Synology DSM에서 docker-tvheadend를 실행하는 방법을 설명한다. 작성 시점이 오래 되어 상세 내용은 조금 다를 수 있으니 [README](../README.md)의 내용을 우선으로 한다.
+이 문서는 Synology DSM에서 docker-tvheadend를 실행하는 방법을 설명한다. 작성 시점이 오래 되어 상세 내용은 조금 다를 수 있으니 [README](https://github.com/wiserain/docker-tvheadend/blob/epgkr/README.md)의 내용을 우선으로 한다.
 
 ### DSM의 GUI를 이용하는 방법
 
@@ -43,12 +43,12 @@
 
 ![](images/PicPick_Capture_20170316_008.png)
 
-8\. 네트워크는 호스트와 동일 네트워크 사용에 체크. [README](../README.md)에서도 언급했지만, docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend는 **무조건 hosted network** 를 사용해야 한다. 일부 낮은 버전에서는 지원하지 않으니 참고. (예를 들면 DSM 5.2)
+8\. 네트워크는 호스트와 동일 네트워크 사용에 체크. [README](https://github.com/wiserain/docker-tvheadend/blob/epgkr/README.md)에서도 언급했지만, docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend는 **무조건 hosted network** 를 사용해야 한다. 일부 낮은 버전에서는 지원하지 않으니 참고. (예를 들면 DSM 5.2)
 <br>
 
 ![](images/PicPick_Capture_20170316_009.png)
 
-9\. 이제 환경변수를 입력해준다. 이 변수들은 그대로 가상 시스템에 전달되어 활용 되는데, 여기서는 필수 항목만 설명하니 추가로 사용 가능한 옵션들은 [README](../README.md)에서 확인하길 바란다. ```PGID``` 와 ```PUID``` 는 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers) 중간쯤에 잘 설명되어 있는데, 시놀로지에서는 docker가 root 권한으로 동작하므로 속편하게 둘 다 0으로 입력해 준다. (물론 보안상 추천하는 방법은 아니다)
+9\. 이제 환경변수를 입력해준다. 이 변수들은 그대로 가상 시스템에 전달되어 활용 되는데, 여기서는 필수 항목만 설명하니 추가로 사용 가능한 옵션들은 [README](https://github.com/wiserain/docker-tvheadend/blob/epgkr/README.md)에서 확인하길 바란다. ```PGID``` 와 ```PUID``` 는 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers) 중간쯤에 잘 설명되어 있는데, 시놀로지에서는 docker가 root 권한으로 동작하므로 속편하게 둘 다 0으로 입력해 준다. (물론 보안상 추천하는 방법은 아니다)
 
 시놀로지 docker 패키지가 업데이트 되면서 위의 그림과는 조금 달라졌는데, 무시하고 ```PUID```와 ```PGID``` 두 개만 설정해 준다. 나머지는 적절한 실행을 위해 미리 입력해둔 값이므로 수정하거나 삭제하지 않는다. 실행 명령도 마찬가지로 그대로 둔다.
 <br>
@@ -133,4 +133,4 @@ docker-compose up -d <service name e.g. tvh-test>
 
 ### 자주 묻는 질문
 
-[문제가 발생하면 읽어보세요.](faqs.md)
+[문제가 발생하면 읽어보세요.](https://github.com/wiserain/docker-tvheadend/blob/epgkr/assets/faqs.md)
