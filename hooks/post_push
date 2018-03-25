@@ -3,7 +3,7 @@
 docker tag $IMAGE_NAME $DOCKER_REPO:$DOCKER_TAG
 docker push $DOCKER_REPO:$DOCKER_TAG
 
-if [[] "${DOCKER_TAG}" =~ ^[0-9.-]+$ ]]; then
+if [[ "${DOCKER_TAG}" =~ ^[0-9.-]+$ ]]; then
 	docker tag $IMAGE_NAME $DOCKER_REPO:latest
 	docker push $DOCKER_REPO:latest
 fi
