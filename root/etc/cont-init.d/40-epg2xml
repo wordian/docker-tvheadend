@@ -7,12 +7,10 @@ if [[ -z "${EPG2XML_VER}" ]]; then
 fi
 
 if [ "${EPG2XML_VER}" == "latest" ]; then
-	TAG_NAME=$(curl -s https://api.github.com/repos/wonipapa/epg2xml/releases/latest | jq -r ".tag_name")
-else
-	TAG_NAME="v${EPG2XML_VER}"
+	TAG_NAME="v1.2.6"
 fi
 
-DOWNLOAD_URL="https://api.github.com/repos/wonipapa/epg2xml/tarball/${TAG_NAME}"
+DOWNLOAD_URL="https://api.github.com/repos/wiserain/epg2xml/tarball/${TAG_NAME}"
 
 echo "Installing epg2xml ${TAG_NAME}"
 
