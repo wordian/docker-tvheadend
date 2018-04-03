@@ -1,9 +1,23 @@
 #!/usr/bin/env bash
 
-docker tag $IMAGE_NAME $DOCKER_REPO:$DOCKER_TAG
-docker push $DOCKER_REPO:$DOCKER_TAG
+function add_tag() {
+  docker tag $IMAGE_NAME $DOCKER_REPO:$1
+  docker push $DOCKER_REPO:$1
+}
 
-if [[ "${DOCKER_TAG}" =~ ^[0-9.-]+$ ]]; then
-	docker tag $IMAGE_NAME $DOCKER_REPO:latest
-	docker push $DOCKER_REPO:latest
+CID=$(docker run -d $IMAGE_NAME)
+sleep 10s
+BUILD=$(docker exec $CID tvheadend -v | awk -F'[_ ]' '{print $NF}' | awk -F'[_~]' '{print $1}')
+docker rm -f $CID
+
+if [ "${DOCKER_TAG}" == "stable" ]; then
+	add_tag $DOCKER_TAG
+	add_tag $DOCKER_TAG-$BUILD
+elif [ "${DOCKER_TAG}" == "latest" ]; then
+	add_tag $DOCKER_TAG
+	add_tag $BUILD
+else
+	add_tag $DOCKER_TAG
 fi
+
+exit $?
