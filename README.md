@@ -33,11 +33,12 @@ docker create \
   -e RUN_OPTS=<parameter> \
   -p 9981:9981 \
   -p 9982:9982 \
-  --device=/dev/dvb
+  --device=/dev/dvb \
+  --device=/dev/dri
   linuxserver/tvheadend
 ```
 The --device=/dev/dvb is only needed if you want to pass through a DVB card to the container. If you use IPTV or HDHomeRun you can leave it out.
-
+The --device=/dev/dri is only needed if you want to use your AMD/Intel GPU for hardware accelerated video encoding (vaapi).
 
 You can choose between ,using tags, latest (default, and no tag required or a specific release branch of tvheadend.
 
@@ -68,6 +69,7 @@ http://192.168.x.x:8080 would show you what's running INSIDE the container on po
 * `-e PUID` for UserID - see below for explanation
 * `-e RUN_OPTS` additional runtime parameters - see below for explanation
 * `--device=/dev/dvb` - for passing through DVB-cards
+* `--device=/dev/dri` - for passing through GPU
 * `--net=host` - for IPTV, SAT>IP and HDHomeRun
 * `-e TZ` - for timezone information *eg Europe/London, etc*
 
@@ -160,6 +162,12 @@ You need to enable minimum advanced view level to see the picons options.
 
 ## Versions
 
++ **21.04.18:** Add JSON::XS Perl package for grab_tv_huro.
++ **24.03.18:** Add dvbcsa package.
++ **04.03.18:** Use sourceforge master rather than mirror for xmltv.
++ **22.02.18:** Add lost libva-intel-driver.
++ **21.02.18:** Fix wrong version of iconv used.
++ **18.02.18:** Add vaapi support, some cleanup and dropping of deprecated options.
 + **04.01.18:** Deprecate cpu_core routine lack of scaling.
 + **11.12.17:** Rebase to alpine 3.7, linting fixes.
 + **02.09.17:** Add codec dependencies.
