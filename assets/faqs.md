@@ -87,3 +87,5 @@ services:
 그런 다음 설정 >> Stream >> Codec Profiles에서 vaapi 관련 코덱을 등록하고 스트림 프로파일에서 연동해서 사용하면 됩니다.
 
 시놀로지에서의 성공 사례는 [이 곳](https://www.clien.net/service/board/cm_nas/11618925)을 참고하시기 바랍니다.
+
+QNAP에서의 성공 사례는 [이 곳](https://www.clien.net/service/board/cm_nas/12010803)을 참고하시기 바랍니다.
