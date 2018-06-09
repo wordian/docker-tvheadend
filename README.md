@@ -69,7 +69,7 @@ Socket으로 직접 밀어 넣는 external grabber와 달리 내부적으로 cro
 
 #### 이미지 태그 네이밍 규칙
 
-- **latest**: 최신 이미지 버전. ~~대부분의 유저에게 권장 됨.~~ [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있다. 비유를 들자면 Firefox나 LineageOS의 Nightly 빌드, 아니면 iOS의 Public Beta와 유사하다.
+- **latest**: 최신 이미지 버전. [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있다. 비유를 들자면 Firefox나 LineageOS의 Nightly 빌드, 아니면 iOS의 Public Beta와 유사하다.
 - **ver-build**: [과거 이미지 버전](https://hub.docker.com/r/wiserain/tvheadend/tags/)으로 tvheadend 버전을 따른다. 예를 들어 ```4.1-2533```.
 - **stable**: 최신 tvheadend release 버전 [참고](https://doozer.io/tvheadend/tvheadend)
 - **vaapi**: ~~latest 빌드에서 vaapi 관련 옵션을 활성화 한 버전 (실험적)~~ 4.3-1102 부터 latest 태그에서 vaapi를 지원하게 됨에 따라 더 이상 유효하지 않다.
@@ -101,7 +101,6 @@ docker-tvheadend의 동작을 제어하는 환경변수와 가능한 옵션을 �
 3.  ```epg2xml.json```은 경로에 파일이 없는 경우에만 다운로드하여 설치하고 경로에 있으면 원래 것을 보존한다. 따라서 같이 업데이트하고 싶으면 파일들을 지우고 컨테이너 삭제/생성/실행하면 된다. 그것도 싫으면 그냥 수동으로 받아서 복사/붙여넣기 하면 된다.
 4.  예전에는 내부적으로 epg2xml를 실행할 때 다음의 arguments ```-i {KT/SK/LG} -d```를 썼으나 이제는 ```-i {KT/SK/LG} -o /epg2xml/xmltv.xml```로 실행한 다음 ```cat /epg2xml/xmltv.xml```로 불러온다. 중간에 파일로 저장하는 과정이 추가된 것이다.
 5.  EPG를 ```/epg2xml/xmltv.xml```에 한 번 저장하는 이유는 이 경로를 웹서버로 노출시켜 다른 앱에서도 가져다 쓰기 쉽게 하기 위함이다. php 내장 기능을 이용해 ```/epg2xml``` 폴더의 내용이 ```http://<tvheadend ip>:9983/```으로 서비스 되므로, tvheadend가 실행되면서 주기적으로 파일로 저장해 놓은 EPG 정보를 ```http://<<tvheadend ip>:9983/xmltv.xml```로 접속하여 쓸 수 있다. 원래는 tvhProxy를 위해 짜낸 기능이지만 여러모로 유용하게 사용할 수 있을 것이다.
-
 
 
 ## 자주 묻는 질문

@@ -25,7 +25,7 @@ docker-compose up -d <service name>
 컨테이너 이름이나 ID는 ```docker ps``` 명령어로 알 수 있습니다.
 
 ### EPG가 공중파 5개 밖에 안나와요!
-epg2xml 프로그램 제작자의 의도입니다. [참고](https://github.com/wonipapa/epg2xml/wiki/FAQ#%EC%9D%BC%EB%B0%98)하세요.
+epg2xml 프로그램 제작자의 의도입니다. ```epg2xml.json``` 파일을 수정하세요.
 
 ### EPG 정보가 이틀치만 가져와 집니다.
 역시 위와 같은 답입니다.
