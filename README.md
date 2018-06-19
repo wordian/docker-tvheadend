@@ -54,7 +54,7 @@ services:
 
 컨테이너를 실행 후 ```http://localhost:9981/```를 통해 WEBUI로 접속한 다음, ```Configuration > Channel / EPG > EPG Grabber Modules```로 이동하면 아래 이미지와 같이 3개의 IPTV 서비스를 위한 internal XMLTV grabber가 마련되어 있으니 Enable 시켜서 사용하면 된다.
 
-![](assets/images/PicPick_Capture_20171206_002.png)
+![](https://github.com/wiserain/docker-tvheadend/blob/epgkr/assets/images/PicPick_Capture_20171206_002.png)
 
 이미지 태그 기준 4.1-2493 버전부터 ```epg2xml```의 옵션을 전달 받아 실행하는 모듈을 추가하였다. 왼쪽에서 ```Korea (epg2xml)```을 선택하고 오른쪽 옵션 창에서 ```epg2xml``` 이후의 arguments를 주면 된다. 예외 처리가 되어 있지 않기 때문에 출력에 관련된 ```-o -s -d```는 extra arguments로 입력하면 안된다.
 
@@ -62,7 +62,7 @@ services:
 
 Socket으로 직접 밀어 넣는 external grabber와 달리 내부적으로 cron을 실행한다. 아래 그림과 같이 EPG Grabber 탭에 보면 기본 설정으로 매일 12시 24시 4분에 실행해서 epg를 가져온다. 하지만 버그가 있는지 기본 설정을 무시하고 끊임없이 실행되는 문제가 초반에 있다. 그러므로 설정을 바꿔서 저장해주고 ```Re-run Internal EPG Grabbers```을 눌러서 실행해준다. 어떤 값으로든 변경 후에는 문제없이 정상적으로 동작하는 것을 확인하였다. Cron 설정 방법에 대해서는 [링크](http://docs.tvheadend.org/webui/config_epggrab/#cron-multi-line-config-text-areas)를 참고바람.
 
-![](assets/images/PicPick_Capture_20170331_001.png)
+![](https://github.com/wiserain/docker-tvheadend/blob/epgkr/assets/images/PicPick_Capture_20170331_001.png)
 
 
 ## 관련 설정들
