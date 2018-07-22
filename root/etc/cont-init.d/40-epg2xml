@@ -26,6 +26,9 @@ else
 	exit 0
 fi
 
+# download more recent version of Channel.json
+wget -q "https://raw.githubusercontent.com/wonipapa/Channel.json/master/Channel.json" -O /tmp/Channel.json
+
 # update epg2xml main scripts
 cd /tmp && \
 	tar -xzf "${TAG_NAME}" --strip 1 && \
