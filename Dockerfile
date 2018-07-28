@@ -37,7 +37,6 @@ RUN \
 	libvpx-dev \
 	libxml2-dev \
 	libxslt-dev \
-	libva-dev \
 	make \
 	openssl-dev \
 	opus-dev \
@@ -55,6 +54,9 @@ RUN \
  apk add --no-cache --virtual=build-dependencies \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	gnu-libiconv-dev && \
+ apk add --no-cache --virtual=build-dependencies \
+	--repository http://nl.alpinelinux.org/alpine/edge/main \
+	libva-dev && \
  echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	bsd-compat-headers \
@@ -71,8 +73,6 @@ RUN \
 	libvpx \
 	libxml2 \
 	libxslt \
-	libva \
-	libva-intel-driver \
 	linux-headers \
 	openssl \
 	opus \
@@ -139,6 +139,10 @@ RUN \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	gnu-libiconv && \
+ apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/main \
+	libva \
+	libva-intel-driver && \
  echo "**** install perl modules for xmltv ****" && \
  curl -L http://cpanmin.us | perl - App::cpanminus && \
  cpanm --installdeps /tmp/patches && \
