@@ -70,14 +70,13 @@ Socket으로 직접 밀어 넣는 external grabber와 달리 내부적으로 cro
 #### 이미지 태그 네이밍 규칙
 
 - **latest**: 최신 이미지 버전. [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있다. 비유를 들자면 Firefox나 LineageOS의 Nightly 빌드, 아니면 iOS의 Public Beta와 유사하다.
-- **ver-build**: [과거 이미지 버전](https://hub.docker.com/r/wiserain/tvheadend/tags/)으로 tvheadend 버전을 따른다. 예를 들어 ```4.1-2533```.
 - **stable**: 최신 tvheadend release 버전 [참고](https://doozer.io/tvheadend/tvheadend)
-- **vaapi**: ~~latest 빌드에서 vaapi 관련 옵션을 활성화 한 버전 (실험적)~~ 4.3-1102 부터 latest 태그에서 vaapi를 지원하게 됨에 따라 더 이상 유효하지 않다.
-- **testing**: docker 이미지 테스트 버전 (개발용)
+
+과거 이미지 버전은 [여기](https://hub.docker.com/r/wiserain/tvheadend/tags/)서 확인할 수 있으며 tvheadend 버전을 따른다. 특별한 일이 없으면 매주 한 번 새롭게 빌드 된다.
 
 #### 네트워크 모드
 
-docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend를 이용해 IPTV를 보기 위해서는 무조건 ```hosted network```를 사용해야 한다. 일부 낮은 docker engine 버전(예를 들어 Synology DSM 5.2)에서는 지원하지 않으니 참고. ```hosted network```란 포트 포워딩이나 매핑을 하지 않고 호스트의 네트워크에 그대로 붙인다는 의미이므로 tvheadend가 사용하는 포트를 바꾸고  싶다면 앱 실행 시 옵션을 주어서 변경해야 한다. docker에서는 다음과 같이 환경 변수를 추가해주면 된다. ```RUN_OPTS=--http_port <port number> --htsp_port <port number>```
+docker는 멀티캐스트 패킷 라우팅이 안되기 때문에 tvheadend를 이용해 IPTV를 보기 위해서는 무조건 ```hosted network```를 사용해야 한다. 일부 낮은 docker engine 버전(예를 들어 Synology DSM 5.2)에서는 지원하지 않으니 참고. ```hosted network```란 포트 포워딩이나 매핑을 하지 않고 호스트의 네트워크에 그대로 붙인다는 의미이므로 tvheadend가 사용하는 포트를 바꾸고 싶다면 앱 실행 시 옵션을 주어서 변경해야 한다. docker에서는 다음과 같이 환경 변수를 추가해주면 된다. ```RUN_OPTS=--http_port <port number> --htsp_port <port number>```
 
 #### 환경변수
 

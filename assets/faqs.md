@@ -51,6 +51,9 @@ m3u 파일에 아무런 문제가 없는데도 채널 스캔/등록이 되지 �
 ### EPG Grabber Modules이 안보여요.
 설정에서 다 보이게 바꿔주세요. [참고](https://www.clien.net/service/board/cm_nas/9913990)
 
+### tvhProxy - Plex DVR 인식이 안됩니다.
+tvheadend 설정을 바꿔주세요. [참고](https://www.clien.net/service/board/cm_nas/12343945)
+
 ### vaapi 가속은 어떻게 사용하나요?
 
 우선 로컬 호스트에서
@@ -82,7 +85,7 @@ services:
       - DISPLAY=:0
 ```
 
-가장 중요한 것은 devices 항목을 통해 장치 드라이버(렌더러)를 연결해줘야 하며, PUID와 PGID도 적절한 권한이 필요합니다. 명확한 레퍼런스는 없지만 테스트 결과 보통의 user 권한으로 실행된 docker container는 vaapi 가속을 이용하지 못하는 것을 발견했습니다. 추천하지 않지만 잘 안된다면 root 권한으로 시험해보기 바랍니다.
+가장 중요한 것은 devices 항목을 통해 장치 드라이버(렌더러)를 연결해줘야 하며, PUID와 PGID도 적절한 권한이 필요합니다. 추천하지 않지만 잘 안된다면 root 권한으로 시험해보기 바랍니다.
 
 그런 다음 설정 >> Stream >> Codec Profiles에서 vaapi 관련 코덱을 등록하고 스트림 프로파일에서 연동해서 사용하면 됩니다.
 
