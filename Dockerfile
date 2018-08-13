@@ -23,7 +23,6 @@ RUN \
 	autoconf \
 	automake \
 	cmake \
-	ffmpeg-dev \
 	file \
 	findutils \
 	g++ \
@@ -48,22 +47,23 @@ RUN \
 	sdl-dev \
 	uriparser-dev \
 	wget \
-	x264-dev \
-	x265-dev \
 	zlib-dev && \
  apk add --no-cache --virtual=build-dependencies \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	gnu-libiconv-dev && \
  apk add --no-cache --virtual=build-dependencies \
 	--repository http://nl.alpinelinux.org/alpine/edge/main \
-	libva-dev && \
+	libva-dev \
+ 	x264-dev && \
+ apk add --no-cache --virtual=build-dependencies \
+ 	--repository http://nl.alpinelinux.org/alpine/edge/community \
+ 	ffmpeg-dev \
+ 	x265-dev && \
  echo "**** install runtime packages ****" && \
  apk add --no-cache \
 	bsd-compat-headers \
 	bzip2 \
 	curl \
-	ffmpeg \
-	ffmpeg-libs \
 	gzip \
 	libcrypto1.0 \
 	libcurl	\
@@ -133,16 +133,21 @@ RUN \
 	tar \
 	uriparser \
 	wget \
-	x264 \
-	x265 \
 	zlib && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	gnu-libiconv && \
+	gnu-libiconv \
+	libva-utils && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/main \
 	libva \
-	libva-intel-driver && \
+	libva-intel-driver \
+	x264 && \
+ apk add --no-cache \
+ 	--repository http://nl.alpinelinux.org/alpine/edge/community \
+ 	ffmpeg \
+ 	ffmpeg-libs \
+ 	x265 && \
  echo "**** install perl modules for xmltv ****" && \
  curl -L http://cpanmin.us | perl - App::cpanminus && \
  cpanm --installdeps /tmp/patches && \
