@@ -84,11 +84,16 @@ docker-tvheadend의 동작을 제어하는 환경변수와 가능한 옵션을 �
 
 - ```PUID```, ```PGUI```: 컨테이너 내부의 앱이 외부의 볼륨에 접근할 수 있도록 하는 권한에 대한 것이다. [여기](https://github.com/linuxserver/docker-tvheadend#user--group-identifiers)를 참고하여 설정한다. 적절하게 설정하지 않으면, EPG 관련 스크립트가 동작하지 않거나 녹화가 안될 수 있다.
 - ```TZ="Asia/Seoul"```: docker-tvheadend에 적용되는 timezone 설정이다. 이게 제대로 안되면 EPG에 시간차가 발생한다.
-- ```EPG2XML_VER="latest"```: 이 값을 활용해서 epg2xml ([latest release](https://github.com/wonipapa/epg2xml/releases))을 다운로드 받는다. 만약 과거 버전에 머무르고 싶다면 값을 지정해 준다. 예를 들어 ```EPG2XML_VER=1.2.1``` 더이상 epg2xml 폴더의 내용이 변경되지 않기를 원한다면 값을 비워둔다. ```EPG2XML_VER=```.
+
+epg2xml 관련 환경변수는 다음과 같다.
+
+- ```UPDATE_EPG2XML="1"```: epg2xml을 업데이트 하고 싶지 않다면 ```"1"```이 아닌 값을 입력한다.
+- ```EPG2XML_VER="latest"```: github 저장소의 default branch (보통은 master)에서 epg2xml 스크립트를 가져온다. wonipapa님의 개발 중단으로 인해 각자 도생하고 있는 현재의 상황에 보다 유연하게 대응하고자 어디서 가져올 것인지 ```EPG2XML_FROM="wiserain"```을 통해서 지정할 수 있다. 정확하게는 ```git clone https://github.com/${EPG2XML_FROM}/epg2xml.git``` 명령어로 가져온다. 그 외의 값은 버전 태그로 간주하고 release에서 가져온다. 예를 들면 ```EPG2XML_VER=1.2.1```. 과거 버전이 더 안정적이지도 않고 버전 관리도 없는 지금, 큰 의미는 없다.
+- ```UPDATE_CHANNEL="1"```: epg2xml의 채널 정보를 담고 있는 ```Channel.json``` 파일을 업데이트 한다. 더이상 업데이트 하지 않기를 원하면 ```"1"```이 아닌 값을 입력한다.
+- ```EPG2XML_FROM="wonipapa"```: epg2xml 스크립트와 마찬가지로 Channel.json을 어디에서 가져올지 지정할 수 있다.
 
 추가로 사용 가능한 환경변수는 다음과 같다.
 
-- ```UPDATE_CHANNEL```: epg2xml의 채널 정보를 담고 있는 ```Channel.json``` 파일을 업데이트 한다. 더이상 업데이트 하지 않기를 원하면 ```false```를 입력한다.
 - ```RUN_OPTS=--http_port <port number> --htsp_port <port number>```: tvheadend 바이너리에 직접 전달되는 실행옵션. 대표적으로 tvheadend의 동작 포트를 바꿀때 쓸 수 있다.
 - ```TVH_URL=http://username:password@localhost:9981```: [tvhProxy](https://github.com/jkaberg/tvhProxy)는 tvheadend의 영상 스트림을 Plex의 DVR (녹화)에서 활용할 수 있도록 도와주는 프록시이다. tvheadend와 같이 내장했으므로 localhost가 맞고 그 외 username, password, port는 자신의 환경에 맞게 수정해서 사용한다.
 

@@ -1,49 +1,53 @@
 #!/usr/bin/with-contenv bash
 
-# check EPG2XML_VER
-if [[ -z "${EPG2XML_VER}" ]]; then
-	echo "Skipping epg2xml update"
-	exit 0
-fi
-
+# prepare epg2xml
 if [ "${EPG2XML_VER}" == "latest" ]; then
-	TAG_NAME="v1.2.6"
+	EPG2XML_URL="https://github.com/${EPG2XML_FROM}/epg2xml.git"
+	if ! (git clone --quiet "${EPG2XML_URL}" > /dev/null /tmp); then
+		echo "ERROR: Invalid download url for epg2xml"
+		echo "ERROR: ${EPG2XML_URL}"
+		exit 0
+	fi
+else
+	# now assuming EPG2XML_VER is version tag
+	EPG2XML_URL="https://api.github.com/repos/${EPG2XML_FROM}/epg2xml/tarball/v${EPG2XML_VER}"
+	if [[ `wget -S --spider "${EPG2XML_URL}" 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
+		wget -q "${EPG2XML_URL}" -P /tmp
+		tar -xzf "/tmp/v${EPG2XML_VER}" --strip 1
+	else
+		echo "ERROR: Invalid download url for epg2xml"
+		echo "ERROR: ${EPG2XML_URL}"
+		exit 0
+	fi
 fi
-
-DOWNLOAD_URL="https://api.github.com/repos/wiserain/epg2xml/tarball/${TAG_NAME}"
-
-echo "Installing epg2xml ${TAG_NAME}"
 
 # make folder
 [[ ! -d "/epg2xml" ]] && mkdir /epg2xml
 
-# download epg2xml
-if [[ `wget -S --spider "${DOWNLOAD_URL}" 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
-	wget -q "${DOWNLOAD_URL}" -P /tmp
-else
-	echo "ERROR: Invalid download url for epg2xml"
-	echo "ERROR: ${DOWNLOAD_URL}"
-	exit 0
-fi
-
-# download more recent version of Channel.json
-wget -q "https://raw.githubusercontent.com/wonipapa/Channel.json/master/Channel.json" -O /tmp/Channel.json
-
 # update epg2xml main scripts
-cd /tmp && \
-	tar -xzf "${TAG_NAME}" --strip 1 && \
+if [[ "${UPDATE_EPG2XML}" == "1" ]]; then
+	echo "Installing epg2xml ${EPG2XML_VER}"
 	mv /tmp/*.php /epg2xml/
+	# also install epg2xml.json if not exist
+	[[ ! -f /epg2xml/epg2xml.json ]] && \
+		mv /tmp/epg2xml.json /epg2xml/ && \
+		echo "epg2xml.json installed"
+else
+	echo "Skipping epg2xml install"
+fi
 
 # update Channel.json
-if [[ ! -f /epg2xml/Channel.json ]] || [[ "${UPDATE_CHANNEL}" != "false" ]]; then
-	mv /tmp/Channel.json /epg2xml/
-	echo "Channel.json updated"
+if [[ ! -f /epg2xml/Channel.json ]] || [[ "${UPDATE_CHANNEL}" == "1" ]]; then
+	CH_URL="https://raw.githubusercontent.com/${CHANNEL_FROM}/Channel.json/master/Channel.json"
+	if [[ `wget -S --spider "${CH_URL}" 2>&1 | grep 'HTTP/1.1 200 OK'` ]]; then
+		wget -q "${CH_URL}" -O /epg2xml/Channel.json
+		echo "Channel.json updated"
+	else
+		echo "ERROR: Invalid download url for Channel.json"
+		echo "ERROR: ${CH_URL}"
+		exit 0
+	fi
 fi
-
-# also update epg2xml.json files if not exist
-[[ ! -f /epg2xml/epg2xml.json ]] && \
-	mv /tmp/epg2xml.json /epg2xml/ && \
-	echo "epg2xml.json updated"
 
 # permissions
 chown -R abc:abc \

@@ -4,7 +4,11 @@ FROM $BASE_IMAGE
 MAINTAINER wiserain
 
 # default variables
+ENV UPDATE_EPG2XML="1"
 ENV EPG2XML_VER="latest"
+ENV EPG2XML_FROM="wiserain"
+ENV UPDATE_CHANNEL="1"
+ENV EPG2XML_FROM="wonipapa"
 ENV EPG_PORT="9983"
 ENV TZ="Asia/Seoul"
 
@@ -18,7 +22,7 @@ RUN chmod 555 /usr/bin/tv_grab_kr_*
 RUN xargs rm < /tmp/tv_grab_irr.list
 
 # install dependencies for epg2xml
-RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl jq
+RUN apk add --no-cache php7 php7-json php7-dom php7-mbstring php7-openssl php7-curl jq git
 
 # install dependencies for tvhProxy
 RUN apk add --no-cache py-flask py-requests py-gevent
