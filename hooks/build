@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-if [ "${DOCKER_TAG}" == "stable" ]; then
-	BASE_IMAGE_FROM="wiserain/tvhbase:stable"
-elif [ "${DOCKER_TAG}" == "stable-lsio" ]; then
+if [ "${DOCKER_TAG}" == "stable-lsio" ]; then
 	BASE_IMAGE_FROM="linuxserver/tvheadend:release-4.2"
 elif [ "${DOCKER_TAG}" == "latest-lsio" ]; then
 	BASE_IMAGE_FROM="linuxserver/tvheadend:latest"
 else
-	# for latest, ver-build, and testing tags
-	BASE_IMAGE_FROM="wiserain/tvhbase:latest"
+	BASE_IMAGE_FROM="wiserain/tvhbase:${DOCKER_TAG}"
 fi
 
 docker build \
