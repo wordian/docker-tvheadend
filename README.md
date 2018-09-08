@@ -90,7 +90,7 @@ epg2xml 관련 환경변수는 다음과 같다.
 - ```UPDATE_EPG2XML="1"```: epg2xml을 업데이트 하고 싶지 않다면 ```"1"```이 아닌 값을 입력한다.
 - ```EPG2XML_VER="latest"```: github 저장소의 default branch (보통은 master)에서 epg2xml 스크립트를 가져온다. wonipapa님의 개발 중단으로 인해 각자 도생하고 있는 현재의 상황에 보다 유연하게 대응하고자 어디서 가져올 것인지 ```EPG2XML_FROM="wiserain"```을 통해서 지정할 수 있다. 정확하게는 ```git clone https://github.com/${EPG2XML_FROM}/epg2xml.git``` 명령어로 가져온다. 그 외의 값은 버전 태그로 간주하고 release에서 가져온다. 예를 들면 ```EPG2XML_VER=1.2.1```. 과거 버전이 더 안정적이지도 않고 버전 관리도 없는 지금, 큰 의미는 없다.
 - ```UPDATE_CHANNEL="1"```: epg2xml의 채널 정보를 담고 있는 ```Channel.json``` 파일을 업데이트 한다. 더이상 업데이트 하지 않기를 원하면 ```"1"```이 아닌 값을 입력한다.
-- ```EPG2XML_FROM="wonipapa"```: epg2xml 스크립트와 마찬가지로 Channel.json을 어디에서 가져올지 지정할 수 있다.
+- ```CHANNEL_FROM="wonipapa"```: epg2xml 스크립트와 마찬가지로 Channel.json을 어디에서 가져올지 지정할 수 있다.
 
 추가로 사용 가능한 환경변수는 다음과 같다.
 
