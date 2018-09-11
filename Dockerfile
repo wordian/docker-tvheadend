@@ -21,7 +21,6 @@ RUN \
 	bzip2 \
 	cmake \
 	curl \
-	ffmpeg-dev \
 	file \
 	findutils \
 	g++ \
@@ -34,7 +33,6 @@ RUN \
 	libgcrypt-dev \
 	libhdhomerun-dev \
 	libtool \
-	libva-dev \
 	libvpx-dev \
 	libxml2-dev \
 	libxslt-dev \
@@ -106,6 +104,10 @@ RUN \
 	x264-dev \
 	x265-dev \
 	zlib-dev && \
+ apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/main \
+	ffmpeg-dev \
+	libva-dev && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
 	gnu-libiconv-dev
@@ -223,16 +225,12 @@ RUN \
 	bsd-compat-headers \
 	bzip2 \
 	curl \
-	ffmpeg \
-	ffmpeg-libs \
 	gzip \
 	libcrypto1.0 \
 	libcurl \
 	libdvbcsa \
 	libhdhomerun-libs \
 	libssl1.0 \
-	libva \
-	libva-intel-driver \
 	libvpx \
 	libxml2 \
 	libxslt \
@@ -300,8 +298,15 @@ RUN \
 	x265 \
 	zlib && \
  apk add --no-cache \
+	--repository http://nl.alpinelinux.org/alpine/edge/main \
+	ffmpeg \
+	ffmpeg-libs \
+	libva \
+	libva-intel-driver && \
+ apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	gnu-libiconv
+	gnu-libiconv \
+	libva-utils
 
 # copy local files and buildstage artifacts
 COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
