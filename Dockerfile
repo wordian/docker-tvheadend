@@ -150,7 +150,15 @@ RUN \
  cd /tmp/tvheadend && \
  ./configure \
 	`#Encoding` \
- 	--enable-libffmpeg_static \
+	--disable-ffmpeg_static \
+	--disable-libfdkaac_static \
+	--disable-libtheora_static \
+	--disable-libopus_static \
+	--disable-libvorbis_static \
+	--disable-libvpx_static \
+	--disable-libx264_static \
+	--disable-libx265_static \
+	--disable-libfdkaac \
 	--enable-libopus \
 	--enable-libvorbis \
 	--enable-libvpx \
