@@ -20,6 +20,7 @@ RUN \
 	bsd-compat-headers \
 	bzip2 \
 	cmake \
+	diffutils \
 	curl \
 	file \
 	findutils \
