@@ -224,22 +224,17 @@ RUN \
 	bsd-compat-headers \
 	bzip2 \
 	curl \
-	ffmpeg \
-	ffmpeg-libs \
 	gzip \
 	libcrypto1.0 \
 	libcurl \
 	libdvbcsa \
-	libhdhomerun-libs \
 	libssl1.0 \
 	libva \
 	libva-intel-driver \
-	libvpx \
 	libxml2 \
 	libxslt \
 	linux-headers \
 	openssl \
-	opus \
 	pcre2 \
 	perl \
 	perl-archive-zip \
@@ -297,8 +292,6 @@ RUN \
 	tar \
 	uriparser \
 	wget \
-	x264 \
-	x265 \
 	zlib && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
