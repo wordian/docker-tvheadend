@@ -15,7 +15,7 @@ if [ "${DOCKER_TAG}" == "stable" ]; then
 	add_tag $DOCKER_TAG-$BUILD
 elif [ "${DOCKER_TAG}" == "latest" ]; then
 	add_tag $DOCKER_TAG
-	add_tag $BUILD
+	add_tag $DOCKER_TAG-$BUILD
 else
 	add_tag $DOCKER_TAG
 fi
