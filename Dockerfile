@@ -230,14 +230,11 @@ RUN \
 	libcrypto1.0 \
 	libcurl \
 	libdvbcsa \
-	libhdhomerun-libs \
 	libssl1.0 \
-	libvpx \
 	libxml2 \
 	libxslt \
 	linux-headers \
 	openssl \
-	opus \
 	pcre2 \
 	perl \
 	perl-archive-zip \
@@ -295,13 +292,9 @@ RUN \
 	tar \
 	uriparser \
 	wget \
-	x264 \
-	x265 \
 	zlib && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/main \
-	ffmpeg \
-	ffmpeg-libs \
 	libva \
 	libva-intel-driver && \
  apk add --no-cache \
