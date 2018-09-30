@@ -71,8 +71,9 @@ Socket으로 직접 밀어 넣는 external grabber와 달리 내부적으로 cro
 
 - **latest**: 최신 이미지 버전. [새로운 기능](https://tvheadend.org/projects/tvheadend/roadmap)을 체험할 수 있는 개발 버전으로 약간 불안정할 수 있다. 비유를 들자면 Firefox나 LineageOS의 Nightly 빌드, 아니면 iOS의 Public Beta와 유사하다.
 - **stable**: 최신 tvheadend release 버전 [참고](https://doozer.io/tvheadend/tvheadend)
+- **edge**: 최신 버전의 tvheadend로 latest 태그와 유사하지만, 트랜스코딩을 위한 비디오 가속 패키지 드라이버(libva, libva-intel-driver)가 보다 최신 버전이다. 당연히 latest보다 더 불안정할 수 있다.
 
-과거 이미지 버전은 [여기](https://hub.docker.com/r/wiserain/tvheadend/tags/)서 확인할 수 있으며 tvheadend 버전을 따른다. 특별한 일이 없으면 매주 한 번 새롭게 빌드 된다.
+사용 가능한 모든 이미지 버전은 [여기](https://hub.docker.com/r/wiserain/tvheadend/tags/)서 확인할 수 있는데, 마지막에 숫자로 끝나는 것은 해당 태그의 해당 tvheadend 버전을 말하며, ```-ns```는 non-static build를 의미한다. 특별한 일이 없으면 매주 한 번 새롭게 빌드 된다.
 
 #### 네트워크 모드
 
