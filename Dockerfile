@@ -22,6 +22,7 @@ RUN \
 	bzip2 \
 	cmake \
 	curl \
+	diffutils \
 	ffmpeg-dev \
 	file \
 	findutils \
