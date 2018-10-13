@@ -229,7 +229,6 @@ RUN \
 	libcurl \
 	libdvbcsa \
 	libssl1.0 \
-	libstdc++ \
 	libva \
 	libva-intel-driver \
 	libxml2 \
