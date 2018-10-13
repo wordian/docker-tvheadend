@@ -227,7 +227,6 @@ RUN \
 	libdvbcsa \
 	libressl \
 	libssl1.0 \
-	libstdc++ \
 	libxml2 \
 	libxslt \
 	linux-headers \
