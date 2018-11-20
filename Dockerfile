@@ -28,6 +28,7 @@ RUN \
 	gcc \
 	gettext-dev \
 	git \
+	gnutls \
 	gzip \
 	libcurl \
 	libdvbcsa-dev \
