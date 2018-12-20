@@ -19,7 +19,7 @@ COPY root/ /
 
 RUN \
 	echo "**** set permissions on tv_grab_files ****" && \
-	chmod 555 /usr/bin/tv_grab_kr_* && \
+	chmod 555 /usr/bin/tv_grab_* && \
 	echo "**** remove irrelevant grabbers ****" && \
 	xargs rm < /tmp/tv_grab_irr.list && \
 	echo "install dependencies for epg2xml" && \
