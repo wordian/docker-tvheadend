@@ -97,6 +97,8 @@ epg2xml 관련 환경변수는 다음과 같다.
 
 - ```RUN_OPTS=--http_port <port number> --htsp_port <port number>```: tvheadend 바이너리에 직접 전달되는 실행옵션. 대표적으로 tvheadend의 동작 포트를 바꿀때 쓸 수 있다.
 - ```TVHEADEND_URL=http://username:password@localhost:9981```: [antennas](https://github.com/TheJF/antennas)는 tvheadend의 영상 스트림을 Plex의 DVR (녹화)에서 활용할 수 있도록 도와주는 프록시이다. tvheadend와 같은 네트워크에서 동작하므로 localhost가 맞고 그 외 username, password, port는 자신의 환경에 맞게 수정해서 사용한다. Antennas 앱이 ```ANTENNAS_URL```와 ```TUNER_COUNT``` 같은 환경 변수를 추가로 지원하니 자세한 내용은 해당 앱의 github을 참고한다.
+- ```TVH_DVB_SCANF_PATH="/usr/share/tvheadend/data/dvb-scan/"```: TVH 일반 설정 가운데 DVB 스캔 파일 경로를 컨테이너 시작할 때 지정한다. 이 경로를 기준으로 볼륨 매핑 ```-v /my/scan/folder:/usr/share/tvheadend/data/dvb-scan/atsc:ro```을 하면 ```/my/scan/folder``` 폴더에 있는 자신만의 주파수 설정 파일을 이용해서 스캔할 수 있다.
+- ```TVH_UI_LEVEL="2"```: TVH 일반 설정 가운데 보기 옵션. 전문가 수준으로.
 
 
 #### 어쩌면 도움이 될지도 모르는 정보

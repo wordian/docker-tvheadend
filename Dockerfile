@@ -11,6 +11,8 @@ ENV UPDATE_CHANNEL="1"
 ENV CHANNEL_FROM="wonipapa"
 ENV EPG_PORT="9983"
 ENV TZ="Asia/Seoul"
+ENV TVH_DVB_SCANF_PATH="/usr/share/tvheadend/data/dvb-scan/"
+ENV TVH_UI_LEVEL="2"
 
 # copy local files
 COPY root/ /
