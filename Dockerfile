@@ -30,11 +30,11 @@ RUN \
 		php7-curl \
 		jq \
 		git && \
-	echo "**** install dependencies for tvhProxy ****" && \
+	echo "**** install antennas ****" && \
 	apk add --no-cache \
-		py-flask \
-		py-requests \
-		py-gevent && \
+		yarn && \
+	git clone https://github.com/TheJF/antennas.git /antennas && \
+	cd /antennas && yarn install && \
 	echo "**** cleanup ****" && \
 	rm -rf /var/cache/apk/* && \
 		rm -rf /tmp/*

@@ -96,7 +96,7 @@ epg2xml 관련 환경변수는 다음과 같다.
 추가로 사용 가능한 환경변수는 다음과 같다.
 
 - ```RUN_OPTS=--http_port <port number> --htsp_port <port number>```: tvheadend 바이너리에 직접 전달되는 실행옵션. 대표적으로 tvheadend의 동작 포트를 바꿀때 쓸 수 있다.
-- ```TVH_URL=http://username:password@localhost:9981```: [tvhProxy](https://github.com/jkaberg/tvhProxy)는 tvheadend의 영상 스트림을 Plex의 DVR (녹화)에서 활용할 수 있도록 도와주는 프록시이다. tvheadend와 같이 내장했으므로 localhost가 맞고 그 외 username, password, port는 자신의 환경에 맞게 수정해서 사용한다.
+- ```TVHEADEND_URL=http://username:password@localhost:9981```: [antennas](https://github.com/TheJF/antennas)는 tvheadend의 영상 스트림을 Plex의 DVR (녹화)에서 활용할 수 있도록 도와주는 프록시이다. tvheadend와 같은 네트워크에서 동작하므로 localhost가 맞고 그 외 username, password, port는 자신의 환경에 맞게 수정해서 사용한다. Antennas 앱이 ```ANTENNAS_URL```와 ```TUNER_COUNT``` 같은 환경 변수를 추가로 지원하니 자세한 내용은 해당 앱의 github을 참고한다.
 
 
 #### 어쩌면 도움이 될지도 모르는 정보
@@ -105,7 +105,7 @@ epg2xml 관련 환경변수는 다음과 같다.
 2.  epg2xml 동작 언어는 php이다. 성능은 python이 약간 좋지만 그 차이가 미미한 반면, docker로 deploy할 때 php가 꽤 유용한 기능을 제공한다.
 3.  ```epg2xml.json```은 경로에 파일이 없는 경우에만 다운로드하여 설치하고 경로에 있으면 원래 것을 보존한다. 따라서 같이 업데이트하고 싶으면 파일들을 지우고 컨테이너 삭제/생성/실행하면 된다. 그것도 싫으면 그냥 수동으로 받아서 복사/붙여넣기 하면 된다.
 4.  예전에는 내부적으로 epg2xml를 실행할 때 다음의 arguments ```-i {KT/SK/LG} -d```를 썼으나 이제는 ```-i {KT/SK/LG} -o /epg2xml/xmltv.xml```로 실행한 다음 ```cat /epg2xml/xmltv.xml```로 불러온다. 중간에 파일로 저장하는 과정이 추가된 것이다.
-5.  EPG를 ```/epg2xml/xmltv.xml```에 한 번 저장하는 이유는 이 경로를 웹서버로 노출시켜 다른 앱에서도 가져다 쓰기 쉽게 하기 위함이다. php 내장 기능을 이용해 ```/epg2xml``` 폴더의 내용이 ```http://<tvheadend ip>:9983/```으로 서비스 되므로, tvheadend가 실행되면서 주기적으로 파일로 저장해 놓은 EPG 정보를 ```http://<<tvheadend ip>:9983/xmltv.xml```로 접속하여 쓸 수 있다. 원래는 tvhProxy를 위해 짜낸 기능이지만 여러모로 유용하게 사용할 수 있을 것이다.
+5.  EPG를 ```/epg2xml/xmltv.xml```에 한 번 저장하는 이유는 이 경로를 웹서버로 노출시켜 다른 앱에서도 가져다 쓰기 쉽게 하기 위함이다. php 내장 기능을 이용해 ```/epg2xml``` 폴더의 내용이 ```http://<tvheadend ip>:9983/```으로 서비스 되므로, tvheadend가 실행되면서 주기적으로 파일로 저장해 놓은 EPG 정보를 ```http://<<tvheadend ip>:9983/xmltv.xml```로 접속하여 쓸 수 있다. 원래는 Plex DVR를 위해 짜낸 기능이지만 여러모로 유용하게 사용할 수 있을 것이다.
 
 
 ## 자주 묻는 질문

@@ -51,8 +51,8 @@ m3u 파일에 아무런 문제가 없는데도 채널 스캔/등록이 되지 �
 ### EPG Grabber Modules이 안보여요.
 설정에서 다 보이게 바꿔주세요. [참고](https://www.clien.net/service/board/cm_nas/9913990)
 
-### tvhProxy - Plex DVR 인식이 안됩니다.
-tvheadend 설정을 바꿔주세요. [참고](https://www.clien.net/service/board/cm_nas/12343945)
+### Plex DVR 인식이 안됩니다.
+tvheadend 설정을 확인해 보세요. [참고](https://www.clien.net/service/board/cm_nas/12343945)
 
 ### vaapi 가속은 어떻게 사용하나요?
 
