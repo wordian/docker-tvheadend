@@ -155,6 +155,7 @@ RUN \
 	--enable-libvpx \
 	--enable-libx264 \
 	--enable-libx265 \
+	--enable-libfdkaac \
 	\
 	`#Options` \
 	--disable-bintray_cache \
