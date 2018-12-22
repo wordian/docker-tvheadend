@@ -164,6 +164,7 @@ RUN \
 	--enable-hdhomerun_client \
 	--enable-libav \
 	--enable-pngquant \
+	--enable-libfdkaac \
 	--infodir=/usr/share/info \
 	--localstatedir=/var \
 	--mandir=/usr/share/man \
