@@ -146,6 +146,11 @@ RUN \
  make DESTDIR=/tmp/xmltv-build install
 
 RUN \
+ echo "**** fix build dependency ****" && \
+ apk add --no-cache --upgrade \
+	libuuid=2.32-r0
+
+RUN \
  echo "**** compile tvheadend ****" && \
  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
