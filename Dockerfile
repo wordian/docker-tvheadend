@@ -338,8 +338,8 @@ RUN \
 	make && \
 	make DESTDIR=/tmp/comskip-build install
 
-############## release tvheadend ##############
-FROM release-ffmpeg as release-tvheadend
+############## release tvhbase ##############
+FROM release-ffmpeg as release-tvhbase
 
 # environment settings
 ARG TZ="Asia/Seoul"
@@ -374,3 +374,55 @@ COPY root/ /
 # ports and volumes
 EXPOSE 9981 9982
 VOLUME /config /recordings
+
+############## release tvheadend ##############
+FROM release-tvhbase
+MAINTAINER wiserain
+
+# default variables
+ENV UPDATE_EPG2XML="1"
+ENV EPG2XML_VER="latest"
+ENV EPG2XML_FROM="wiserain"
+ENV UPDATE_CHANNEL="1"
+ENV CHANNEL_FROM="wonipapa"
+ENV EPG_PORT="9983"
+ENV TZ="Asia/Seoul"
+ENV TVH_DVB_SCANF_PATH="/usr/share/tvheadend/data/dvb-scan/"
+ENV TVH_UI_LEVEL="2"
+
+# copy local files
+COPY root_epgkr/ /
+
+RUN \
+	echo "**** set permissions on tv_grab_files ****" && \
+	chmod 555 /usr/bin/tv_grab_* && \
+	echo "**** remove irrelevant grabbers ****" && \
+	xargs rm -f < /tmp/tv_grab_irr.list && \
+	echo "install dependencies for epg2xml" && \
+	chmod 777 /tmp && \
+	apt-get update -yq && \
+	apt-get install -yq \
+		git \
+		php \
+		php-curl \
+		php-dom \
+		php-mbstring \
+		jq \
+		wget && \
+	echo "**** install antennas ****" && \
+	apt-get install -yq \
+		gnupg2 && \
+	curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+	echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+	apt-get update -yq && \
+	apt-get install -yq yarn && \
+	git clone https://github.com/TheJF/antennas.git /antennas && \
+	cd /antennas && yarn install && \
+	echo "**** cleanup ****" && \
+	rm -rf /var/cache/apk/* && \
+		rm -rf /tmp/*
+
+# ports and volumes
+EXPOSE 9981 9982 9983
+VOLUME /config /recordings /epg2xml
+WORKDIR /epg2xml
