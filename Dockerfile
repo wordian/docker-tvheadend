@@ -164,7 +164,7 @@ RUN \
 	--disable-libvpx_static \
 	--disable-libx264_static \
 	--disable-libx265_static \
-	--disable-libfdkaac \
+	--enable-libfdkaac \
 	--enable-libopus \
 	--enable-libvorbis \
 	--enable-libvpx \
