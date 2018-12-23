@@ -322,6 +322,12 @@ RUN \
 	gnu-libiconv \
 	libva-utils
 
+RUN \
+ echo "**** fix runtime dependency ****" && \
+ apk add --no-cache --upgrade \
+ 	gnutls=3.6.2-r0 \
+	libuuid=2.32-r0
+
 # copy local files and buildstage artifacts
 COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
 COPY --from=buildstage /tmp/comskip-build/usr/ /usr/
