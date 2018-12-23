@@ -1,9 +1,11 @@
 #!/usr/bin/with-contenv bash
 
-jq --arg TVH_DVB_SCANF_PATH "${TVH_DVB_SCANF_PATH}" \
-	'.muxconfpath = $TVH_DVB_SCANF_PATH' /config/config > /config/config.tmp && \
-	mv /config/config.tmp /config/config
+if [[ -f /config/config ]]; then
+	jq --arg TVH_DVB_SCANF_PATH "${TVH_DVB_SCANF_PATH}" \
+		'.muxconfpath = $TVH_DVB_SCANF_PATH' /config/config > /config/config.tmp && \
+		mv /config/config.tmp /config/config
 
-jq --argjson TVH_UI_LEVEL "${TVH_UI_LEVEL}" \
-	'.uilevel = $TVH_UI_LEVEL' /config/config > /config/config.tmp && \
-	mv /config/config.tmp /config/config
+	jq --argjson TVH_UI_LEVEL "${TVH_UI_LEVEL}" \
+		'.uilevel = $TVH_UI_LEVEL' /config/config > /config/config.tmp && \
+		mv /config/config.tmp /config/config
+fi
