@@ -6,6 +6,7 @@ cflag=
 if [ $# = 0 ]
 then
     php -f /epg2xml/epg2xml.php -- -i KT -o /epg2xml/xmltv.xml
+    [ "${EPG4PLEX}" = "1" ] && epg4plex /epg2xml/xmltv.xml /epg2xml/xmltv_plex.xml >/dev/null 2>&1
     cat /epg2xml/xmltv.xml
     exit 0
 fi

@@ -27,6 +27,7 @@ fi
 
 if [ -f $EPG2XML_SCRIPT ]; then
     php -f $EPG2XML_SCRIPT -- $args -o /epg2xml/xmltv.xml
+    [ "${EPG4PLEX}" = "1" ] && epg4plex /epg2xml/xmltv.xml /epg2xml/xmltv_plex.xml >/dev/null 2>&1
     cat /epg2xml/xmltv.xml
 fi
 

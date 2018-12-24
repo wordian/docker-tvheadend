@@ -3,6 +3,7 @@
 FROM lsiobase/ubuntu:bionic as base
 
 ARG MAKEFLAGS="-j2"
+ARG DEBIAN_FRONTEND="noninteractive"
 ARG APT_MIRROR="archive.ubuntu.com"
 
 RUN \
@@ -102,8 +103,13 @@ ARG PKG_CONFIG_PATH=/opt/ffmpeg/lib/pkgconfig
 ARG LD_LIBRARY_PATH=/opt/ffmpeg/lib
 ARG PREFIX=/opt/ffmpeg
 ARG MAKEFLAGS="-j2"
+ARG DEBIAN_FRONTEND="noninteractive"
 
-RUN buildDeps="autoconf \
+RUN \
+	echo "**** install build dependencies ****" && \
+	apt-get -yq update && \
+	apt-get -yq install --no-install-recommends \
+		autoconf \
 		automake \
 		build-essential \
 		cmake \
@@ -118,9 +124,7 @@ RUN buildDeps="autoconf \
         nasm \
         yasm \
         wget \
-        zlib1g-dev" && \
-    apt-get -yq update && \
-	apt-get install -yq --no-install-recommends ${buildDeps}
+        zlib1g-dev
 
 RUN \
 	echo "**** compile libx264 ****" && \
@@ -210,7 +214,7 @@ RUN \
 	cp qt-faststart ${PREFIX}/bin
 
 RUN \
-	echo "**** compile ffmpeg ****" && \
+	echo "**** cleanup ****" && \
 	ldd ${PREFIX}/bin/ffmpeg | grep opt/ffmpeg | cut -d ' ' -f 3 | xargs -i cp {} /usr/local/lib/ && \
 	cp ${PREFIX}/bin/* /usr/local/bin/ && \
 	cp -r ${PREFIX}/share/ffmpeg /usr/local/share/ && \
@@ -218,6 +222,8 @@ RUN \
 
 ############## release ffmpeg ##############
 FROM base as release-ffmpeg
+
+ARG DEBIAN_FRONTEND="noninteractive"
 
 ENV LD_LIBRARY_PATH=/usr/local/lib
 COPY --from=build-ffmpeg /usr/local /usr/local/
@@ -234,6 +240,7 @@ RUN \
 FROM base as build-tvheadend
 
 ARG MAKEFLAGS="-j2"
+ARG DEBIAN_FRONTEND="noninteractive"
 
 RUN \
 	echo "**** install basic build tools ****" && \
@@ -278,6 +285,7 @@ RUN \
 		markdown \
 		pngquant \
 		python \
+		python-requests \
 		zlib1g-dev \
 		\
 		`#Codec` \
@@ -341,6 +349,8 @@ RUN \
 ############## release tvhbase ##############
 FROM release-ffmpeg as release-tvhbase
 
+ARG DEBIAN_FRONTEND="noninteractive"
+
 # environment settings
 ARG TZ="Asia/Seoul"
 ENV HOME="/config"
@@ -362,6 +372,8 @@ RUN \
 		libx11-6 \
 		libxext6 \
 		libxfixes3 \
+		python \
+		wget \
 		xmltv-util
 
 # copy local files and buildstage artifacts
@@ -379,6 +391,8 @@ VOLUME /config /recordings
 FROM release-tvhbase
 MAINTAINER wiserain
 
+ARG DEBIAN_FRONTEND="noninteractive"
+
 # default variables
 ENV UPDATE_EPG2XML="1"
 ENV EPG2XML_VER="latest"
@@ -394,8 +408,9 @@ ENV TVH_UI_LEVEL="2"
 COPY root_epgkr/ /
 
 RUN \
-	echo "**** set permissions on tv_grab_files ****" && \
+	echo "**** set permissions for scripts /usr/bin ****" && \
 	chmod 555 /usr/bin/tv_grab_* && \
+	chmod a+x /usr/bin/epg4plex && \
 	echo "**** remove irrelevant grabbers ****" && \
 	xargs rm -f < /tmp/tv_grab_irr.list && \
 	echo "install dependencies for epg2xml" && \
@@ -407,8 +422,7 @@ RUN \
 		php-curl \
 		php-dom \
 		php-mbstring \
-		jq \
-		wget && \
+		jq && \
 	echo "**** install antennas ****" && \
 	apt-get install -yq \
 		gnupg2 && \
