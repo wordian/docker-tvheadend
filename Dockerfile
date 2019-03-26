@@ -77,6 +77,7 @@ RUN \
 	perl-lingua-en-numbers-ordinate \
 	perl-lingua-preferred \
 	perl-list-moreutils \
+	perl-lwp-useragent-determined \
 	perl-module-build \
 	perl-module-pluggable \
 	perl-net-ssleay \
@@ -274,6 +275,7 @@ RUN \
 	perl-lingua-en-numbers-ordinate \
 	perl-lingua-preferred \
 	perl-list-moreutils \
+	perl-lwp-useragent-determined \
 	perl-module-build \
 	perl-module-pluggable \
 	perl-net-ssleay \
