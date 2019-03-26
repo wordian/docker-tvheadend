@@ -4,7 +4,8 @@ FROM lsiobase/alpine:3.8 as buildstage
 # package versions
 ARG ARGTABLE_VER="2.13"
 ARG TVH_VER="release/4.2"
-ARG XMLTV_VER="0.5.69"
+ARG XMLTV_VER="v0.5.70"
+ARG TVHEADEND_COMMIT
 
 # environment settings
 ARG TZ="Europe/Oslo"
@@ -31,6 +32,7 @@ RUN \
 	gettext-dev \
 	git \
 	gzip \
+	jq \
 	libdvbcsa-dev \
 	libgcrypt-dev \
 	libhdhomerun-dev \
@@ -123,13 +125,9 @@ RUN \
 
 RUN \
  echo "**** compile XMLTV ****" && \
- curl -o \
- /tmp/xmtltv-src.tar.bz2 -L \
-	"https://sourceforge.net/projects/xmltv/files/xmltv/${XMLTV_VER}/xmltv-${XMLTV_VER}.tar.bz2" && \
- tar xf \
- /tmp/xmtltv-src.tar.bz2 -C \
-	/tmp --strip-components=1 && \
- cd "/tmp/xmltv-${XMLTV_VER}" && \
+ git clone https://github.com/XMLTV/xmltv.git /tmp/xmltv && \
+ cd /tmp/xmltv && \
+ git checkout ${XMLTV_VER} && \
  echo "**** Perl 5.26 fixes for XMTLV ****" && \
  sed "s/use POSIX 'tmpnam';//" -i filter/tv_to_latex && \
  sed "s/use POSIX 'tmpnam';//" -i filter/tv_to_text && \
@@ -153,8 +151,15 @@ RUN \
 
 RUN \
  echo "**** compile tvheadend ****" && \
- git clone -b ${TVH_VER} --single-branch https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
+ if [ -z ${TVHEADEND_COMMIT+x} ]; then \
+	TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/tvheadend/tvheadend/commits/${TVH_VER} \
+	| jq -r '. | .sha'); \
+ fi && \
+ mkdir -p \
+        /tmp/tvheadend && \
+ git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
+ git checkout ${TVHEADEND_COMMIT} && \
  ./configure \
 	--disable-bintray_cache \
 	--enable-bundle \
