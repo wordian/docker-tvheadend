@@ -303,7 +303,18 @@ RUN \
 	zlib && \
  apk add --no-cache \
 	--repository http://nl.alpinelinux.org/alpine/edge/testing \
-	gnu-libiconv
+	gnu-libiconv && \
+ echo "**** Add Picons ****" && \
+ mkdir -p /picons && \
+ curl -o \
+        /tmp/picons.tar.bz2 -L \
+        https://lsio-ci.ams3.digitaloceanspaces.com/picons/picons.tar.bz2 && \
+ tar xf \
+ /tmp/picons.tar.bz2 -C \
+        /picons && \
+ echo "**** cleanup ****" && \
+ rm -rf \
+        /tmp/*
 
 # copy local files and buildstage artifacts
 COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
