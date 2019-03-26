@@ -7,6 +7,7 @@ ARG XMLTV_VER="v0.6.1"
 
 # environment settings
 ARG TZ="Europe/Oslo"
+ARG TVHEADEND_COMMIT
 ENV HOME="/config"
 
 # copy patches
@@ -30,6 +31,7 @@ RUN \
 	gettext-dev \
 	git \
 	gzip \
+	jq \
 	libcurl \
 	libdvbcsa-dev \
 	libgcrypt-dev \
@@ -124,13 +126,9 @@ RUN \
 
 RUN \
  echo "**** compile XMLTV ****" && \
- curl -o \
- /tmp/xmtltv-src.tar.bz2 -L \
-	"https://sourceforge.net/projects/xmltv/files/xmltv/${XMLTV_VER}/xmltv-${XMLTV_VER}.tar.bz2" && \
- tar xf \
- /tmp/xmtltv-src.tar.bz2 -C \
-	/tmp --strip-components=1 && \
- cd "/tmp/xmltv-${XMLTV_VER}" && \
+ git clone https://github.com/XMLTV/xmltv.git /tmp/xmltv && \
+ cd /tmp/xmltv && \
+ git checkout ${XMLTV_VER} && \
  echo "**** Perl 5.26 fixes for XMTLV ****" && \
  sed "s/use POSIX 'tmpnam';//" -i filter/tv_to_latex && \
  sed "s/use POSIX 'tmpnam';//" -i filter/tv_to_text && \
@@ -146,8 +144,15 @@ RUN \
 
 RUN \
  echo "**** compile tvheadend ****" && \
+ if [ -z ${TVHEADEND_COMMIT+x} ]; then \
+	TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/tvheadend/tvheadend/commits/master \
+	| jq -r '. | .sha'); \
+ fi && \
+ mkdir -p \
+	/tmp/tvheadend && \
  git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
+ git checkout ${TVHEADEND_COMMIT} && \
  ./configure \
 	`#Encoding` \
  	--enable-libffmpeg_static \
