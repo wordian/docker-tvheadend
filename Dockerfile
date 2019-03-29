@@ -1,4 +1,4 @@
-FROM lsiobase/alpine:3.8 as buildstage
+FROM lsiobase/alpine:3.9 as buildstage
 ############## build stage ##############
 
 # package versions
@@ -138,7 +138,7 @@ RUN \
  sed "s/\(lib\/Ask\/Term.pm';\)/.\/\1/" -i Makefile.PL && \
  PERL5LIB=`pwd` && \
  echo -e "yes" | perl Makefile.PL PREFIX=/usr/ INSTALLDIRS=vendor && \
- make && \
+ make -j 2 && \
  make test && \
  make DESTDIR=/tmp/xmltv-build install
 
@@ -178,7 +178,7 @@ RUN \
 	--mandir=/usr/share/man \
 	--prefix=/usr \
 	--sysconfdir=/config && \
- make && \
+ make -j 2 && \
  make DESTDIR=/tmp/tvheadend-build install
 
 RUN \
@@ -196,7 +196,7 @@ RUN \
  cd /tmp/argtable && \
  ./configure \
 	--prefix=/usr && \
- make && \
+ make -j 2 && \
  make check && \
  make DESTDIR=/tmp/argtable-build install && \
  echo "**** copy to /usr for comskip dependency ****" && \
@@ -210,11 +210,11 @@ RUN \
  ./configure \
 	--bindir=/usr/bin \
 	--sysconfdir=/config/comskip && \
- make && \
+ make -j 2 && \
  make DESTDIR=/tmp/comskip-build install
 
 ############## runtime stage ##############
-FROM lsiobase/alpine:3.8
+FROM lsiobase/alpine:3.9
 
 # set version label
 ARG BUILD_DATE
@@ -234,11 +234,11 @@ RUN \
 	ffmpeg \
 	ffmpeg-libs \
 	gzip \
-	libcrypto1.0 \
+	libcrypto1.1 \
 	libcurl \
 	libdvbcsa \
 	libhdhomerun-libs \
-	libssl1.0 \
+	libssl1.1 \
 	libva \
 	libva-intel-driver \
 	libvpx \
@@ -314,14 +314,8 @@ RUN \
  echo "**** Add Picons ****" && \
  mkdir -p /picons && \
  curl -o \
-        /tmp/picons.tar.bz2 -L \
-        https://lsio-ci.ams3.digitaloceanspaces.com/picons/picons.tar.bz2 && \
- tar xf \
- /tmp/picons.tar.bz2 -C \
-        /picons && \
- echo "**** cleanup ****" && \
- rm -rf \
-        /tmp/*
+        /picons.tar.bz2 -L \
+        https://lsio-ci.ams3.digitaloceanspaces.com/picons/picons.tar.bz2
 
 # copy local files and buildstage artifacts
 COPY --from=buildstage /tmp/argtable-build/usr/ /usr/
