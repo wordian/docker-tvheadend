@@ -241,6 +241,7 @@ FROM base as build-tvheadend
 
 ARG MAKEFLAGS="-j2"
 ARG DEBIAN_FRONTEND="noninteractive"
+ARG TVHEADEND_COMMIT
 
 RUN \
 	echo "**** install basic build tools ****" && \
@@ -250,6 +251,7 @@ RUN \
 		automake \
 		build-essential \
 		git \
+		jq \
 		libtool \
 		pkg-config \
 		wget
@@ -303,8 +305,13 @@ RUN \
 		libavutil-dev \
 		libswresample-dev \
 		libswscale-dev && \
+	if [ -z ${TVHEADEND_COMMIT+x} ]; then \
+		TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/tvheadend/tvheadend/commits/master \
+		| jq -r '. | .sha'); \
+	fi && \
 	git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
 	cd /tmp/tvheadend && \
+	git checkout ${TVHEADEND_COMMIT} && \
 	./configure \
 		`#Encoding` \
 		--enable-libffmpeg_static \
@@ -374,7 +381,12 @@ RUN \
 		libxfixes3 \
 		python \
 		wget \
-		xmltv-util
+		xmltv-util && \
+	echo "**** Add Picons ****" && \
+	mkdir -p /picons && \
+	curl -o \
+		/picons.tar.bz2 -L \
+		https://lsio-ci.ams3.digitaloceanspaces.com/picons/picons.tar.bz2
 
 # copy local files and buildstage artifacts
 COPY --from=build-tvheadend /tmp/libiconv-build/usr/ /usr/
