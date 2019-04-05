@@ -1,14 +1,25 @@
 #!/usr/bin/with-contenv bash
 
-if [[ -e /dev/dri ]]; then
-  for dev_dri in /dev/dri/*; do
-    video_gid=$(stat -c %g ${dev_dri})
-    if ! getent group ${video_gid}  > /dev/null; then
-      groupadd -f -g ${video_gid} video
-    fi
-    if [ ! $(getent group video | cut -d: -f3) == ${video_gid} ]; then
-      groupmod -g ${video_gid} video
-    fi
-    usermod -aG video abc
-  done
+# Check for the existence of the Intel video device
+if [ -e /dev/dri ]; then
+  VIDEO_GID=$(stat -c '%g' /dev/dri/* | head -n 1)
+else
+  exit 0
+fi
+
+# Check if this GID matches the current abc user
+ABCGID=$(getent group abc | awk -F: '{print $3}')
+if [ "${ABCGID}" == "${VIDEO_GID}" ]; then
+  exit 0
+fi
+
+# Check if the GID is taken and swap to 65533
+CURRENT=$(getent group ${VIDEO_GID} | awk -F: '{print $1}')
+if [ -z "${CURRENT}" ] || [ "${CURRENT}" == 'video' ]; then
+  groupmod -g ${VIDEO_GID} video
+  usermod -a -G video abc
+else
+  groupmod -g 65533 ${CURRENT}
+  groupmod -g ${VIDEO_GID} video
+  usermod -a -G video abc
 fi
