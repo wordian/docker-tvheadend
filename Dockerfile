@@ -1,14 +1,14 @@
 # package version
 ARG BASE_IMAGE
 FROM $BASE_IMAGE
-MAINTAINER wiserain
+MAINTAINER wordian
 
 # default variables
 ENV UPDATE_EPG2XML="1"
 ENV EPG2XML_VER="latest"
-ENV EPG2XML_FROM="wiserain"
+ENV EPG2XML_FROM="wordian"
 ENV UPDATE_CHANNEL="1"
-ENV CHANNEL_FROM="wonipapa"
+ENV CHANNEL_FROM="wordian"
 ENV EPG_PORT="9983"
 ENV TZ="Asia/Seoul"
 ENV TVH_DVB_SCANF_PATH="/usr/share/tvheadend/data/dvb-scan/"
