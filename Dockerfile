@@ -2,12 +2,11 @@ FROM lsiobase/alpine:3.9 as buildstage
 ############## build stage ##############
 
 # package versions
-ARG ARGTABLE_VER="2.13"
 ARG XMLTV_VER="v0.6.1"
 
 # environment settings
 ARG TZ="Europe/Oslo"
-ARG TVHEADEND_COMMIT
+ARG TVHEADEND_COMMIT="flow/hdhomerun"
 ENV HOME="/config"
 
 # copy patches
@@ -145,12 +144,12 @@ RUN \
 RUN \
  echo "**** compile tvheadend ****" && \
  if [ -z ${TVHEADEND_COMMIT+x} ]; then \
-	TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/tvheadend/tvheadend/commits/master \
+	TVHEADEND_COMMIT=$(curl -sX GET https://api.github.com/repos/wordian/tvheadend/commits/master \
 	| jq -r '. | .sha'); \
  fi && \
  mkdir -p \
 	/tmp/tvheadend && \
- git clone https://github.com/tvheadend/tvheadend.git /tmp/tvheadend && \
+ git clone https://github.com/wordian/tvheadend.git /tmp/tvheadend && \
  cd /tmp/tvheadend && \
  git checkout ${TVHEADEND_COMMIT} && \
  ./configure \
@@ -183,12 +182,11 @@ RUN \
 
 RUN \
  echo "**** compile argtable2 ****" && \
- ARGTABLE_VER1="${ARGTABLE_VER//./-}" && \
  mkdir -p \
 	/tmp/argtable && \
  curl -o \
  /tmp/argtable-src.tar.gz -L \
-	"https://sourceforge.net/projects/argtable/files/argtable/argtable-${ARGTABLE_VER}/argtable${ARGTABLE_VER1}.tar.gz" && \
+	"https://sourceforge.net/projects/argtable/files/argtable/argtable-2.13/argtable2-13.tar.gz" && \
  tar xf \
  /tmp/argtable-src.tar.gz -C \
 	/tmp/argtable --strip-components=1 && \
